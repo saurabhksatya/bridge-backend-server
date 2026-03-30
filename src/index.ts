@@ -7,7 +7,13 @@ import { env } from "./LoadEnv"
 import { db } from "./db"
 
 const hub = new Hub()
-const server = createServer()
+const server = createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/plain" })
+    res.end("Server is online")
+    return
+  }
+})
 const wss = new WebSocket.Server({ noServer: true })
 
 server.on("upgrade", async (req, socket, head) => {
