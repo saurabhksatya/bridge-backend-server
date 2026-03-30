@@ -32,6 +32,10 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Create a stage for building the application.
 FROM deps as build
 
+# Set a placeholder DATABASE_URL for Prisma client generation (not used at runtime)
+ARG DATABASE_URL=postgresql://user:password@localhost:5432/placeholder
+ENV DATABASE_URL=$DATABASE_URL
+
 # Download additional development dependencies before building, as some projects require
 # "devDependencies" to be installed to build. If you don't need this, remove this step.
 RUN --mount=type=bind,source=package.json,target=package.json \
@@ -40,8 +44,11 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 
 # Copy the rest of the source files into the image.
 COPY . .
+# Generate Prisma client.
+RUN npx prisma generate
 # Run the build script.
 RUN npm run build
+
 
 ################################################################################
 # Create a new stage to run the application with minimal runtime dependencies
@@ -61,6 +68,7 @@ COPY package.json .
 # the built application from the build stage into the image.
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/generated ./generated
 
 
 # Expose the port that the application listens on.
