@@ -16,82 +16,86 @@ const server = createServer((req, res) => {
 })
 const wss = new WebSocket.Server({ noServer: true })
 
-server.on("upgrade", async (req, socket, head) => {
-  const url = new URL(req.url || "", "http://localhost")
-  const path = url.pathname.split("/").filter(Boolean)
+server.on("upgrade", (req, socket, head) => {
+  void (async () => {
+    const url = new URL(req.url ?? "", "http://localhost")
+    const path = url.pathname.split("/").filter(Boolean)
 
-  console.log("Upgrade request for path:", path)
+    console.log("Upgrade request for path:", path)
 
-  if (path.length !== 3) {
-    socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
-    socket.destroy()
-    return
-  }
-
-  const [type, id, secret] = path
-  if (!id || !secret) {
-    socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
-    socket.destroy()
-    return
-  }
-
-  if (type === "device") {
-    const bridge = await db.bridge.findUnique({ where: { id } })
-    if (!bridge || bridge.secretKey !== secret) {
-      socket.write("HTTP/1.1 401 Unauthorized\r\n\r\nInvalid credentials")
+    if (path.length !== 3) {
+      socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
       socket.destroy()
       return
     }
-  } else if (type === "client") {
-    const dbClient = await db.user.findUnique({ where: { id } })
-    if (!dbClient || dbClient.secret !== secret) {
-      socket.write("HTTP/1.1 401 Unauthorized\r\n\r\nInvalid credentials")
+
+    const [type, id, secret] = path
+    if (!id || !secret) {
+      socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
       socket.destroy()
       return
     }
-  } else {
-    socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
-    socket.destroy()
-    return
-  }
 
-  // If checks pass, proceed with upgrade
-  wss.handleUpgrade(req, socket, head, (ws) => {
-    wss.emit("connection", ws, req)
-  })
+    if (type === "device") {
+      const device = await db.device.findUnique({ where: { id } })
+      if (!device || device.secret !== secret) {
+        socket.write("HTTP/1.1 401 Unauthorized\r\n\r\nInvalid credentials")
+        socket.destroy()
+        return
+      }
+    } else if (type === "client") {
+      const user = await db.user.findUnique({ where: { id } })
+      if (!user || user.secret !== secret) {
+        socket.write("HTTP/1.1 401 Unauthorized\r\n\r\nInvalid credentials")
+        socket.destroy()
+        return
+      }
+    } else {
+      socket.write("HTTP/1.1 400 Bad Request\r\n\r\nInvalid endpoint")
+      socket.destroy()
+      return
+    }
+
+    // If checks pass, proceed with upgrade
+    wss.handleUpgrade(req, socket, head, (ws) => {
+      wss.emit("connection", ws, req)
+    })
+  })()
 })
 
-wss.on("connection", async (ws: WebSocket, req) => {
-  const url = new URL(req.url || "", "http://localhost")
-  const path = url.pathname.split("/").filter(Boolean)
-  const [type, id] = path
+wss.on("connection", (ws: WebSocket, req) => {
+  void (async () => {
+    const url = new URL(req.url ?? "", "http://localhost")
+    const path = url.pathname.split("/").filter(Boolean)
+    const [type, id] = path
 
-  if (type === "device") {
-    const bridge = await db.bridge.findUnique({ where: { id } })
-    if (!bridge) return // Should not happen since checked in upgrade
+    if (type === "device") {
+      const dbDevice = await db.device.findUnique({ where: { id } })
+      if (!dbDevice) return // Should not happen since checked in upgrade
 
-    if (hub.getDevice(id)) {
-      ws.close(1008, "Device with this ID already connected")
-      return
+      if (hub.getDevice(id)) {
+        ws.close(1008, "Device with this ID already connected")
+        return
+      }
+
+      if (!dbDevice.userId) {
+        ws.close(1008, "Associated client not found")
+        return
+      }
+      const device = new Device(ws, id, hub, dbDevice.userId)
+      hub.addDevice(id, device)
+      console.log(`Device connected: ${id}`)
+    } else if (type === "client") {
+      if (hub.getClient(id)) {
+        ws.close(1008, "Already Connected")
+        return
+      }
+
+      const client = new Client(ws, id, id, hub)
+      hub.addClient(id, client)
+      console.log(`Client connected: ${id}`)
     }
-
-    if (!bridge.userId) {
-      ws.close(1008, "Associated client not found")
-      return
-    }
-    const device = new Device(ws, id, hub, bridge.userId)
-    hub.addDevice(id, device)
-    console.log(`Device connected: ${id}`)
-  } else if (type === "client") {
-    if (hub.getClient(id)) {
-      ws.close(1008, "Already Connected")
-      return
-    }
-
-    const client = new Client(ws, id, hub)
-    hub.addClient(id, client)
-    console.log(`Client connected: ${id}`)
-  }
+  })()
 })
 
 server.listen(8080, () => {

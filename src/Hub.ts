@@ -2,8 +2,8 @@ import { type Device } from "./Device.js"
 import { type Client } from "./Client.js"
 
 export class Hub {
-  private devices = new Map<string, Device>()
-  private clients = new Map<string, Client>()
+  public devices = new Map<string, Device>()
+  public clients = new Map<string, Client>()
 
   addDevice(id: string, device: Device) {
     this.devices.set(id, device)

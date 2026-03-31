@@ -121,14 +121,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
-};
-
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -176,19 +168,13 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.BridgeScalarFieldEnum = {
+exports.Prisma.DeviceScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  secret: 'secret',
+  GlobalChoice: 'GlobalChoice',
   userId: 'userId',
-  secretKey: 'secretKey',
   createdAt: 'createdAt'
-};
-
-exports.Prisma.RecordsScalarFieldEnum = {
-  id: 'id',
-  bridgeId: 'bridgeId',
-  createdAt: 'createdAt',
-  weight: 'weight'
 };
 
 exports.Prisma.SortOrder = {
@@ -205,16 +191,18 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Choices = exports.$Enums.Choices = {
+  ON: 'ON',
+  OFF: 'OFF',
+  AUTO: 'AUTO'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Bridge: 'Bridge',
-  Records: 'Records'
+  Device: 'Device'
 };
 
 /**
