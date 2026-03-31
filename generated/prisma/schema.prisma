@@ -15,18 +15,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Post {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdBy   User   @relation(fields: [createdById], references: [id])
+  createdById String
+
+  @@index([name])
+}
+
 model User {
   id            String    @id
   name          String //@db.Text
   email         String
   emailVerified Boolean   @default(false)
   image         String? //@db.Text
-  secret        String    @default(uuid()) //@db.Text
+  secret        String    @unique @default(uuid())
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
-  Devices       Device[]
+  posts         Post[]
+  Bridges       Bridge[]
 
   @@unique([email])
   @@map("user")
@@ -77,21 +90,25 @@ model Verification {
   @@map("verification")
 }
 
-enum Choices {
-  ON
-  OFF
-  AUTO
-}
-
-model Device {
-  id           String  @id @default(cuid())
-  name         String
-  secret       String  @unique @default(uuid())
-  GlobalChoice Choices
-
+model Bridge {
+  id        String  @id @default(cuid())
+  name      String?
   userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  secretKey String  @unique @default(uuid())
+  user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  Records   Records[]
+  createdAt DateTime  @default(now())
 
   @@index([userId])
+}
+
+model Records {
+  id        String   @id @default(cuid())
+  bridgeId  String
+  bridge    Bridge   @relation(fields: [bridgeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  weight    Float
+
+  @@index([bridgeId, createdAt])
 }

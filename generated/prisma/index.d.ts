@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Post
+ * 
+ */
+export type Post = $Result.DefaultSelection<Prisma.$PostPayload>
+/**
  * Model User
  * 
  */
@@ -34,28 +39,15 @@ export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
  */
 export type Verification = $Result.DefaultSelection<Prisma.$VerificationPayload>
 /**
- * Model Device
+ * Model Bridge
  * 
  */
-export type Device = $Result.DefaultSelection<Prisma.$DevicePayload>
-
+export type Bridge = $Result.DefaultSelection<Prisma.$BridgePayload>
 /**
- * Enums
+ * Model Records
+ * 
  */
-export namespace $Enums {
-  export const Choices: {
-  ON: 'ON',
-  OFF: 'OFF',
-  AUTO: 'AUTO'
-};
-
-export type Choices = (typeof Choices)[keyof typeof Choices]
-
-}
-
-export type Choices = $Enums.Choices
-
-export const Choices: typeof $Enums.Choices
+export type Records = $Result.DefaultSelection<Prisma.$RecordsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -64,8 +56,8 @@ export const Choices: typeof $Enums.Choices
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Posts
+ * const posts = await prisma.post.findMany()
  * ```
  *
  *
@@ -85,8 +77,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Posts
+   * const posts = await prisma.post.findMany()
    * ```
    *
    *
@@ -176,6 +168,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.post`: Exposes CRUD operations for the **Post** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Posts
+    * const posts = await prisma.post.findMany()
+    * ```
+    */
+  get post(): Prisma.PostDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -216,14 +218,24 @@ export class PrismaClient<
   get verification(): Prisma.VerificationDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.device`: Exposes CRUD operations for the **Device** model.
+   * `prisma.bridge`: Exposes CRUD operations for the **Bridge** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Devices
-    * const devices = await prisma.device.findMany()
+    * // Fetch zero or more Bridges
+    * const bridges = await prisma.bridge.findMany()
     * ```
     */
-  get device(): Prisma.DeviceDelegate<ExtArgs, ClientOptions>;
+  get bridge(): Prisma.BridgeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.records`: Exposes CRUD operations for the **Records** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Records
+    * const records = await prisma.records.findMany()
+    * ```
+    */
+  get records(): Prisma.RecordsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -665,11 +677,13 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Post: 'Post',
     User: 'User',
     Session: 'Session',
     Account: 'Account',
     Verification: 'Verification',
-    Device: 'Device'
+    Bridge: 'Bridge',
+    Records: 'Records'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -688,10 +702,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "device"
+      modelProps: "post" | "user" | "session" | "account" | "verification" | "bridge" | "records"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Post: {
+        payload: Prisma.$PostPayload<ExtArgs>
+        fields: Prisma.PostFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PostFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PostFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          findFirst: {
+            args: Prisma.PostFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PostFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          findMany: {
+            args: Prisma.PostFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+          }
+          create: {
+            args: Prisma.PostCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          createMany: {
+            args: Prisma.PostCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PostCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+          }
+          delete: {
+            args: Prisma.PostDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          update: {
+            args: Prisma.PostUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          deleteMany: {
+            args: Prisma.PostDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PostUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PostUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>[]
+          }
+          upsert: {
+            args: Prisma.PostUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostPayload>
+          }
+          aggregate: {
+            args: Prisma.PostAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePost>
+          }
+          groupBy: {
+            args: Prisma.PostGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PostCountArgs<ExtArgs>
+            result: $Utils.Optional<PostCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -988,77 +1076,151 @@ export namespace Prisma {
           }
         }
       }
-      Device: {
-        payload: Prisma.$DevicePayload<ExtArgs>
-        fields: Prisma.DeviceFieldRefs
+      Bridge: {
+        payload: Prisma.$BridgePayload<ExtArgs>
+        fields: Prisma.BridgeFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.DeviceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+            args: Prisma.BridgeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.DeviceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           findFirst: {
-            args: Prisma.DeviceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+            args: Prisma.BridgeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.DeviceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           findMany: {
-            args: Prisma.DeviceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+            args: Prisma.BridgeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>[]
           }
           create: {
-            args: Prisma.DeviceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           createMany: {
-            args: Prisma.DeviceCreateManyArgs<ExtArgs>
+            args: Prisma.BridgeCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.DeviceCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+            args: Prisma.BridgeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>[]
           }
           delete: {
-            args: Prisma.DeviceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           update: {
-            args: Prisma.DeviceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           deleteMany: {
-            args: Prisma.DeviceDeleteManyArgs<ExtArgs>
+            args: Prisma.BridgeDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.DeviceUpdateManyArgs<ExtArgs>
+            args: Prisma.BridgeUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.DeviceUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+            args: Prisma.BridgeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>[]
           }
           upsert: {
-            args: Prisma.DeviceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+            args: Prisma.BridgeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BridgePayload>
           }
           aggregate: {
-            args: Prisma.DeviceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateDevice>
+            args: Prisma.BridgeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBridge>
           }
           groupBy: {
-            args: Prisma.DeviceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<DeviceGroupByOutputType>[]
+            args: Prisma.BridgeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BridgeGroupByOutputType>[]
           }
           count: {
-            args: Prisma.DeviceCountArgs<ExtArgs>
-            result: $Utils.Optional<DeviceCountAggregateOutputType> | number
+            args: Prisma.BridgeCountArgs<ExtArgs>
+            result: $Utils.Optional<BridgeCountAggregateOutputType> | number
+          }
+        }
+      }
+      Records: {
+        payload: Prisma.$RecordsPayload<ExtArgs>
+        fields: Prisma.RecordsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RecordsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RecordsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          findFirst: {
+            args: Prisma.RecordsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RecordsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          findMany: {
+            args: Prisma.RecordsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>[]
+          }
+          create: {
+            args: Prisma.RecordsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          createMany: {
+            args: Prisma.RecordsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RecordsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>[]
+          }
+          delete: {
+            args: Prisma.RecordsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          update: {
+            args: Prisma.RecordsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          deleteMany: {
+            args: Prisma.RecordsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RecordsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RecordsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>[]
+          }
+          upsert: {
+            args: Prisma.RecordsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RecordsPayload>
+          }
+          aggregate: {
+            args: Prisma.RecordsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRecords>
+          }
+          groupBy: {
+            args: Prisma.RecordsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RecordsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RecordsCountArgs<ExtArgs>
+            result: $Utils.Optional<RecordsCountAggregateOutputType> | number
           }
         }
       }
@@ -1158,11 +1320,13 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    post?: PostOmit
     user?: UserOmit
     session?: SessionOmit
     account?: AccountOmit
     verification?: VerificationOmit
-    device?: DeviceOmit
+    bridge?: BridgeOmit
+    records?: RecordsOmit
   }
 
   /* Types for Logging */
@@ -1245,13 +1409,15 @@ export namespace Prisma {
   export type UserCountOutputType = {
     sessions: number
     accounts: number
-    Devices: number
+    posts: number
+    Bridges: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-    Devices?: boolean | UserCountOutputTypeCountDevicesArgs
+    posts?: boolean | UserCountOutputTypeCountPostsArgs
+    Bridges?: boolean | UserCountOutputTypeCountBridgesArgs
   }
 
   // Custom InputTypes
@@ -1282,14 +1448,1110 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DeviceWhereInput
+  export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBridgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BridgeWhereInput
+  }
+
+
+  /**
+   * Count Type BridgeCountOutputType
+   */
+
+  export type BridgeCountOutputType = {
+    Records: number
+  }
+
+  export type BridgeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Records?: boolean | BridgeCountOutputTypeCountRecordsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BridgeCountOutputType without action
+   */
+  export type BridgeCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BridgeCountOutputType
+     */
+    select?: BridgeCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BridgeCountOutputType without action
+   */
+  export type BridgeCountOutputTypeCountRecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecordsWhereInput
   }
 
 
   /**
    * Models
    */
+
+  /**
+   * Model Post
+   */
+
+  export type AggregatePost = {
+    _count: PostCountAggregateOutputType | null
+    _min: PostMinAggregateOutputType | null
+    _max: PostMaxAggregateOutputType | null
+  }
+
+  export type PostMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type PostMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    createdById: string | null
+  }
+
+  export type PostCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    updatedAt: number
+    createdById: number
+    _all: number
+  }
+
+
+  export type PostMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type PostMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+  }
+
+  export type PostCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    createdById?: true
+    _all?: true
+  }
+
+  export type PostAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Post to aggregate.
+     */
+    where?: PostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Posts to fetch.
+     */
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Posts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Posts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Posts
+    **/
+    _count?: true | PostCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PostMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PostMaxAggregateInputType
+  }
+
+  export type GetPostAggregateType<T extends PostAggregateArgs> = {
+        [P in keyof T & keyof AggregatePost]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePost[P]>
+      : GetScalarType<T[P], AggregatePost[P]>
+  }
+
+
+
+
+  export type PostGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithAggregationInput | PostOrderByWithAggregationInput[]
+    by: PostScalarFieldEnum[] | PostScalarFieldEnum
+    having?: PostScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PostCountAggregateInputType | true
+    _min?: PostMinAggregateInputType
+    _max?: PostMaxAggregateInputType
+  }
+
+  export type PostGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    createdById: string
+    _count: PostCountAggregateOutputType | null
+    _min: PostMinAggregateOutputType | null
+    _max: PostMaxAggregateOutputType | null
+  }
+
+  type GetPostGroupByPayload<T extends PostGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PostGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PostGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PostGroupByOutputType[P]>
+            : GetScalarType<T[P], PostGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PostSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["post"]>
+
+  export type PostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["post"]>
+
+  export type PostSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["post"]>
+
+  export type PostSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdById?: boolean
+  }
+
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "createdById", ExtArgs["result"]["post"]>
+  export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PostIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Post"
+    objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+      updatedAt: Date
+      createdById: string
+    }, ExtArgs["result"]["post"]>
+    composites: {}
+  }
+
+  type PostGetPayload<S extends boolean | null | undefined | PostDefaultArgs> = $Result.GetResult<Prisma.$PostPayload, S>
+
+  type PostCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostCountAggregateInputType | true
+    }
+
+  export interface PostDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Post'], meta: { name: 'Post' } }
+    /**
+     * Find zero or one Post that matches the filter.
+     * @param {PostFindUniqueArgs} args - Arguments to find a Post
+     * @example
+     * // Get one Post
+     * const post = await prisma.post.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PostFindUniqueArgs>(args: SelectSubset<T, PostFindUniqueArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Post that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PostFindUniqueOrThrowArgs} args - Arguments to find a Post
+     * @example
+     * // Get one Post
+     * const post = await prisma.post.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PostFindUniqueOrThrowArgs>(args: SelectSubset<T, PostFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Post that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostFindFirstArgs} args - Arguments to find a Post
+     * @example
+     * // Get one Post
+     * const post = await prisma.post.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PostFindFirstArgs>(args?: SelectSubset<T, PostFindFirstArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Post that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostFindFirstOrThrowArgs} args - Arguments to find a Post
+     * @example
+     * // Get one Post
+     * const post = await prisma.post.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PostFindFirstOrThrowArgs>(args?: SelectSubset<T, PostFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Posts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Posts
+     * const posts = await prisma.post.findMany()
+     * 
+     * // Get first 10 Posts
+     * const posts = await prisma.post.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const postWithIdOnly = await prisma.post.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PostFindManyArgs>(args?: SelectSubset<T, PostFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Post.
+     * @param {PostCreateArgs} args - Arguments to create a Post.
+     * @example
+     * // Create one Post
+     * const Post = await prisma.post.create({
+     *   data: {
+     *     // ... data to create a Post
+     *   }
+     * })
+     * 
+     */
+    create<T extends PostCreateArgs>(args: SelectSubset<T, PostCreateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Posts.
+     * @param {PostCreateManyArgs} args - Arguments to create many Posts.
+     * @example
+     * // Create many Posts
+     * const post = await prisma.post.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PostCreateManyArgs>(args?: SelectSubset<T, PostCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Posts and returns the data saved in the database.
+     * @param {PostCreateManyAndReturnArgs} args - Arguments to create many Posts.
+     * @example
+     * // Create many Posts
+     * const post = await prisma.post.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Posts and only return the `id`
+     * const postWithIdOnly = await prisma.post.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PostCreateManyAndReturnArgs>(args?: SelectSubset<T, PostCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Post.
+     * @param {PostDeleteArgs} args - Arguments to delete one Post.
+     * @example
+     * // Delete one Post
+     * const Post = await prisma.post.delete({
+     *   where: {
+     *     // ... filter to delete one Post
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PostDeleteArgs>(args: SelectSubset<T, PostDeleteArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Post.
+     * @param {PostUpdateArgs} args - Arguments to update one Post.
+     * @example
+     * // Update one Post
+     * const post = await prisma.post.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PostUpdateArgs>(args: SelectSubset<T, PostUpdateArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Posts.
+     * @param {PostDeleteManyArgs} args - Arguments to filter Posts to delete.
+     * @example
+     * // Delete a few Posts
+     * const { count } = await prisma.post.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PostDeleteManyArgs>(args?: SelectSubset<T, PostDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Posts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Posts
+     * const post = await prisma.post.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PostUpdateManyArgs>(args: SelectSubset<T, PostUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Posts and returns the data updated in the database.
+     * @param {PostUpdateManyAndReturnArgs} args - Arguments to update many Posts.
+     * @example
+     * // Update many Posts
+     * const post = await prisma.post.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Posts and only return the `id`
+     * const postWithIdOnly = await prisma.post.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PostUpdateManyAndReturnArgs>(args: SelectSubset<T, PostUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Post.
+     * @param {PostUpsertArgs} args - Arguments to update or create a Post.
+     * @example
+     * // Update or create a Post
+     * const post = await prisma.post.upsert({
+     *   create: {
+     *     // ... data to create a Post
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Post we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PostUpsertArgs>(args: SelectSubset<T, PostUpsertArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Posts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostCountArgs} args - Arguments to filter Posts to count.
+     * @example
+     * // Count the number of Posts
+     * const count = await prisma.post.count({
+     *   where: {
+     *     // ... the filter for the Posts we want to count
+     *   }
+     * })
+    **/
+    count<T extends PostCountArgs>(
+      args?: Subset<T, PostCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PostCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Post.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PostAggregateArgs>(args: Subset<T, PostAggregateArgs>): Prisma.PrismaPromise<GetPostAggregateType<T>>
+
+    /**
+     * Group by Post.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PostGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PostGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PostGroupByArgs['orderBy'] }
+        : { orderBy?: PostGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PostGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Post model
+   */
+  readonly fields: PostFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Post.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Post model
+   */
+  interface PostFieldRefs {
+    readonly id: FieldRef<"Post", 'String'>
+    readonly name: FieldRef<"Post", 'String'>
+    readonly createdAt: FieldRef<"Post", 'DateTime'>
+    readonly updatedAt: FieldRef<"Post", 'DateTime'>
+    readonly createdById: FieldRef<"Post", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Post findUnique
+   */
+  export type PostFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where: PostWhereUniqueInput
+  }
+
+  /**
+   * Post findUniqueOrThrow
+   */
+  export type PostFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where: PostWhereUniqueInput
+  }
+
+  /**
+   * Post findFirst
+   */
+  export type PostFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where?: PostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Posts to fetch.
+     */
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Posts.
+     */
+    cursor?: PostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Posts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Posts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Posts.
+     */
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * Post findFirstOrThrow
+   */
+  export type PostFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Post to fetch.
+     */
+    where?: PostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Posts to fetch.
+     */
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Posts.
+     */
+    cursor?: PostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Posts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Posts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Posts.
+     */
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * Post findMany
+   */
+  export type PostFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter, which Posts to fetch.
+     */
+    where?: PostWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Posts to fetch.
+     */
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Posts.
+     */
+    cursor?: PostWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Posts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Posts.
+     */
+    skip?: number
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * Post create
+   */
+  export type PostCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Post.
+     */
+    data: XOR<PostCreateInput, PostUncheckedCreateInput>
+  }
+
+  /**
+   * Post createMany
+   */
+  export type PostCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Posts.
+     */
+    data: PostCreateManyInput | PostCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Post createManyAndReturn
+   */
+  export type PostCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * The data used to create many Posts.
+     */
+    data: PostCreateManyInput | PostCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Post update
+   */
+  export type PostUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Post.
+     */
+    data: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+    /**
+     * Choose, which Post to update.
+     */
+    where: PostWhereUniqueInput
+  }
+
+  /**
+   * Post updateMany
+   */
+  export type PostUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Posts.
+     */
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    /**
+     * Filter which Posts to update
+     */
+    where?: PostWhereInput
+    /**
+     * Limit how many Posts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Post updateManyAndReturn
+   */
+  export type PostUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * The data used to update Posts.
+     */
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyInput>
+    /**
+     * Filter which Posts to update
+     */
+    where?: PostWhereInput
+    /**
+     * Limit how many Posts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Post upsert
+   */
+  export type PostUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Post to update in case it exists.
+     */
+    where: PostWhereUniqueInput
+    /**
+     * In case the Post found by the `where` argument doesn't exist, create a new Post with this data.
+     */
+    create: XOR<PostCreateInput, PostUncheckedCreateInput>
+    /**
+     * In case the Post was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PostUpdateInput, PostUncheckedUpdateInput>
+  }
+
+  /**
+   * Post delete
+   */
+  export type PostDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+    /**
+     * Filter which Post to delete.
+     */
+    where: PostWhereUniqueInput
+  }
+
+  /**
+   * Post deleteMany
+   */
+  export type PostDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Posts to delete
+     */
+    where?: PostWhereInput
+    /**
+     * Limit how many Posts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Post without action
+   */
+  export type PostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Post
+     */
+    select?: PostSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Post
+     */
+    omit?: PostOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model User
@@ -1481,7 +2743,8 @@ export namespace Prisma {
     updatedAt?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    Devices?: boolean | User$DevicesArgs<ExtArgs>
+    posts?: boolean | User$postsArgs<ExtArgs>
+    Bridges?: boolean | User$BridgesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1522,7 +2785,8 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    Devices?: boolean | User$DevicesArgs<ExtArgs>
+    posts?: boolean | User$postsArgs<ExtArgs>
+    Bridges?: boolean | User$BridgesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1533,7 +2797,8 @@ export namespace Prisma {
     objects: {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
-      Devices: Prisma.$DevicePayload<ExtArgs>[]
+      posts: Prisma.$PostPayload<ExtArgs>[]
+      Bridges: Prisma.$BridgePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1940,7 +3205,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Devices<T extends User$DevicesArgs<ExtArgs> = {}>(args?: Subset<T, User$DevicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    posts<T extends User$postsArgs<ExtArgs> = {}>(args?: Subset<T, User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Bridges<T extends User$BridgesArgs<ExtArgs> = {}>(args?: Subset<T, User$BridgesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2414,27 +3680,51 @@ export namespace Prisma {
   }
 
   /**
-   * User.Devices
+   * User.posts
    */
-  export type User$DevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$postsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Post
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: PostSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Post
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: PostOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
-    where?: DeviceWhereInput
-    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
-    cursor?: DeviceWhereUniqueInput
+    include?: PostInclude<ExtArgs> | null
+    where?: PostWhereInput
+    orderBy?: PostOrderByWithRelationInput | PostOrderByWithRelationInput[]
+    cursor?: PostWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+    distinct?: PostScalarFieldEnum | PostScalarFieldEnum[]
+  }
+
+  /**
+   * User.Bridges
+   */
+  export type User$BridgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bridge
+     */
+    select?: BridgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bridge
+     */
+    omit?: BridgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BridgeInclude<ExtArgs> | null
+    where?: BridgeWhereInput
+    orderBy?: BridgeOrderByWithRelationInput | BridgeOrderByWithRelationInput[]
+    cursor?: BridgeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BridgeScalarFieldEnum | BridgeScalarFieldEnum[]
   }
 
   /**
@@ -5724,362 +7014,355 @@ export namespace Prisma {
 
 
   /**
-   * Model Device
+   * Model Bridge
    */
 
-  export type AggregateDevice = {
-    _count: DeviceCountAggregateOutputType | null
-    _min: DeviceMinAggregateOutputType | null
-    _max: DeviceMaxAggregateOutputType | null
+  export type AggregateBridge = {
+    _count: BridgeCountAggregateOutputType | null
+    _min: BridgeMinAggregateOutputType | null
+    _max: BridgeMaxAggregateOutputType | null
   }
 
-  export type DeviceMinAggregateOutputType = {
+  export type BridgeMinAggregateOutputType = {
     id: string | null
     name: string | null
-    secret: string | null
-    GlobalChoice: $Enums.Choices | null
     userId: string | null
+    secretKey: string | null
     createdAt: Date | null
   }
 
-  export type DeviceMaxAggregateOutputType = {
+  export type BridgeMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    secret: string | null
-    GlobalChoice: $Enums.Choices | null
     userId: string | null
+    secretKey: string | null
     createdAt: Date | null
   }
 
-  export type DeviceCountAggregateOutputType = {
+  export type BridgeCountAggregateOutputType = {
     id: number
     name: number
-    secret: number
-    GlobalChoice: number
     userId: number
+    secretKey: number
     createdAt: number
     _all: number
   }
 
 
-  export type DeviceMinAggregateInputType = {
+  export type BridgeMinAggregateInputType = {
     id?: true
     name?: true
-    secret?: true
-    GlobalChoice?: true
     userId?: true
+    secretKey?: true
     createdAt?: true
   }
 
-  export type DeviceMaxAggregateInputType = {
+  export type BridgeMaxAggregateInputType = {
     id?: true
     name?: true
-    secret?: true
-    GlobalChoice?: true
     userId?: true
+    secretKey?: true
     createdAt?: true
   }
 
-  export type DeviceCountAggregateInputType = {
+  export type BridgeCountAggregateInputType = {
     id?: true
     name?: true
-    secret?: true
-    GlobalChoice?: true
     userId?: true
+    secretKey?: true
     createdAt?: true
     _all?: true
   }
 
-  export type DeviceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Device to aggregate.
+     * Filter which Bridge to aggregate.
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Devices to fetch.
+     * Determine the order of Bridges to fetch.
      */
-    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    orderBy?: BridgeOrderByWithRelationInput | BridgeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: DeviceWhereUniqueInput
+    cursor?: BridgeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Devices from the position of the cursor.
+     * Take `±n` Bridges from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Devices.
+     * Skip the first `n` Bridges.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Devices
+     * Count returned Bridges
     **/
-    _count?: true | DeviceCountAggregateInputType
+    _count?: true | BridgeCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: DeviceMinAggregateInputType
+    _min?: BridgeMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: DeviceMaxAggregateInputType
+    _max?: BridgeMaxAggregateInputType
   }
 
-  export type GetDeviceAggregateType<T extends DeviceAggregateArgs> = {
-        [P in keyof T & keyof AggregateDevice]: P extends '_count' | 'count'
+  export type GetBridgeAggregateType<T extends BridgeAggregateArgs> = {
+        [P in keyof T & keyof AggregateBridge]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateDevice[P]>
-      : GetScalarType<T[P], AggregateDevice[P]>
+        : GetScalarType<T[P], AggregateBridge[P]>
+      : GetScalarType<T[P], AggregateBridge[P]>
   }
 
 
 
 
-  export type DeviceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DeviceWhereInput
-    orderBy?: DeviceOrderByWithAggregationInput | DeviceOrderByWithAggregationInput[]
-    by: DeviceScalarFieldEnum[] | DeviceScalarFieldEnum
-    having?: DeviceScalarWhereWithAggregatesInput
+  export type BridgeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BridgeWhereInput
+    orderBy?: BridgeOrderByWithAggregationInput | BridgeOrderByWithAggregationInput[]
+    by: BridgeScalarFieldEnum[] | BridgeScalarFieldEnum
+    having?: BridgeScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: DeviceCountAggregateInputType | true
-    _min?: DeviceMinAggregateInputType
-    _max?: DeviceMaxAggregateInputType
+    _count?: BridgeCountAggregateInputType | true
+    _min?: BridgeMinAggregateInputType
+    _max?: BridgeMaxAggregateInputType
   }
 
-  export type DeviceGroupByOutputType = {
+  export type BridgeGroupByOutputType = {
     id: string
-    name: string
-    secret: string
-    GlobalChoice: $Enums.Choices
+    name: string | null
     userId: string | null
+    secretKey: string
     createdAt: Date
-    _count: DeviceCountAggregateOutputType | null
-    _min: DeviceMinAggregateOutputType | null
-    _max: DeviceMaxAggregateOutputType | null
+    _count: BridgeCountAggregateOutputType | null
+    _min: BridgeMinAggregateOutputType | null
+    _max: BridgeMaxAggregateOutputType | null
   }
 
-  type GetDeviceGroupByPayload<T extends DeviceGroupByArgs> = Prisma.PrismaPromise<
+  type GetBridgeGroupByPayload<T extends BridgeGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<DeviceGroupByOutputType, T['by']> &
+      PickEnumerable<BridgeGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof DeviceGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof BridgeGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], DeviceGroupByOutputType[P]>
-            : GetScalarType<T[P], DeviceGroupByOutputType[P]>
+              : GetScalarType<T[P], BridgeGroupByOutputType[P]>
+            : GetScalarType<T[P], BridgeGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type DeviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type BridgeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    secret?: boolean
-    GlobalChoice?: boolean
     userId?: boolean
+    secretKey?: boolean
     createdAt?: boolean
-    user?: boolean | Device$userArgs<ExtArgs>
-  }, ExtArgs["result"]["device"]>
+    user?: boolean | Bridge$userArgs<ExtArgs>
+    Records?: boolean | Bridge$RecordsArgs<ExtArgs>
+    _count?: boolean | BridgeCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bridge"]>
 
-  export type DeviceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type BridgeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    secret?: boolean
-    GlobalChoice?: boolean
     userId?: boolean
+    secretKey?: boolean
     createdAt?: boolean
-    user?: boolean | Device$userArgs<ExtArgs>
-  }, ExtArgs["result"]["device"]>
+    user?: boolean | Bridge$userArgs<ExtArgs>
+  }, ExtArgs["result"]["bridge"]>
 
-  export type DeviceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type BridgeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    secret?: boolean
-    GlobalChoice?: boolean
     userId?: boolean
+    secretKey?: boolean
     createdAt?: boolean
-    user?: boolean | Device$userArgs<ExtArgs>
-  }, ExtArgs["result"]["device"]>
+    user?: boolean | Bridge$userArgs<ExtArgs>
+  }, ExtArgs["result"]["bridge"]>
 
-  export type DeviceSelectScalar = {
+  export type BridgeSelectScalar = {
     id?: boolean
     name?: boolean
-    secret?: boolean
-    GlobalChoice?: boolean
     userId?: boolean
+    secretKey?: boolean
     createdAt?: boolean
   }
 
-  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "secret" | "GlobalChoice" | "userId" | "createdAt", ExtArgs["result"]["device"]>
-  export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Device$userArgs<ExtArgs>
+  export type BridgeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "userId" | "secretKey" | "createdAt", ExtArgs["result"]["bridge"]>
+  export type BridgeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Bridge$userArgs<ExtArgs>
+    Records?: boolean | Bridge$RecordsArgs<ExtArgs>
+    _count?: boolean | BridgeCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type DeviceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Device$userArgs<ExtArgs>
+  export type BridgeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Bridge$userArgs<ExtArgs>
   }
-  export type DeviceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | Device$userArgs<ExtArgs>
+  export type BridgeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | Bridge$userArgs<ExtArgs>
   }
 
-  export type $DevicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Device"
+  export type $BridgePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Bridge"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
+      Records: Prisma.$RecordsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
-      secret: string
-      GlobalChoice: $Enums.Choices
+      name: string | null
       userId: string | null
+      secretKey: string
       createdAt: Date
-    }, ExtArgs["result"]["device"]>
+    }, ExtArgs["result"]["bridge"]>
     composites: {}
   }
 
-  type DeviceGetPayload<S extends boolean | null | undefined | DeviceDefaultArgs> = $Result.GetResult<Prisma.$DevicePayload, S>
+  type BridgeGetPayload<S extends boolean | null | undefined | BridgeDefaultArgs> = $Result.GetResult<Prisma.$BridgePayload, S>
 
-  type DeviceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<DeviceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: DeviceCountAggregateInputType | true
+  type BridgeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BridgeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BridgeCountAggregateInputType | true
     }
 
-  export interface DeviceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Device'], meta: { name: 'Device' } }
+  export interface BridgeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Bridge'], meta: { name: 'Bridge' } }
     /**
-     * Find zero or one Device that matches the filter.
-     * @param {DeviceFindUniqueArgs} args - Arguments to find a Device
+     * Find zero or one Bridge that matches the filter.
+     * @param {BridgeFindUniqueArgs} args - Arguments to find a Bridge
      * @example
-     * // Get one Device
-     * const device = await prisma.device.findUnique({
+     * // Get one Bridge
+     * const bridge = await prisma.bridge.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends DeviceFindUniqueArgs>(args: SelectSubset<T, DeviceFindUniqueArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends BridgeFindUniqueArgs>(args: SelectSubset<T, BridgeFindUniqueArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Device that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Bridge that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {DeviceFindUniqueOrThrowArgs} args - Arguments to find a Device
+     * @param {BridgeFindUniqueOrThrowArgs} args - Arguments to find a Bridge
      * @example
-     * // Get one Device
-     * const device = await prisma.device.findUniqueOrThrow({
+     * // Get one Bridge
+     * const bridge = await prisma.bridge.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends DeviceFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends BridgeFindUniqueOrThrowArgs>(args: SelectSubset<T, BridgeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Device that matches the filter.
+     * Find the first Bridge that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceFindFirstArgs} args - Arguments to find a Device
+     * @param {BridgeFindFirstArgs} args - Arguments to find a Bridge
      * @example
-     * // Get one Device
-     * const device = await prisma.device.findFirst({
+     * // Get one Bridge
+     * const bridge = await prisma.bridge.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends DeviceFindFirstArgs>(args?: SelectSubset<T, DeviceFindFirstArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends BridgeFindFirstArgs>(args?: SelectSubset<T, BridgeFindFirstArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Device that matches the filter or
+     * Find the first Bridge that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceFindFirstOrThrowArgs} args - Arguments to find a Device
+     * @param {BridgeFindFirstOrThrowArgs} args - Arguments to find a Bridge
      * @example
-     * // Get one Device
-     * const device = await prisma.device.findFirstOrThrow({
+     * // Get one Bridge
+     * const bridge = await prisma.bridge.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends DeviceFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends BridgeFindFirstOrThrowArgs>(args?: SelectSubset<T, BridgeFindFirstOrThrowArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Devices that matches the filter.
+     * Find zero or more Bridges that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {BridgeFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Devices
-     * const devices = await prisma.device.findMany()
+     * // Get all Bridges
+     * const bridges = await prisma.bridge.findMany()
      * 
-     * // Get first 10 Devices
-     * const devices = await prisma.device.findMany({ take: 10 })
+     * // Get first 10 Bridges
+     * const bridges = await prisma.bridge.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const deviceWithIdOnly = await prisma.device.findMany({ select: { id: true } })
+     * const bridgeWithIdOnly = await prisma.bridge.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends DeviceFindManyArgs>(args?: SelectSubset<T, DeviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends BridgeFindManyArgs>(args?: SelectSubset<T, BridgeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Device.
-     * @param {DeviceCreateArgs} args - Arguments to create a Device.
+     * Create a Bridge.
+     * @param {BridgeCreateArgs} args - Arguments to create a Bridge.
      * @example
-     * // Create one Device
-     * const Device = await prisma.device.create({
+     * // Create one Bridge
+     * const Bridge = await prisma.bridge.create({
      *   data: {
-     *     // ... data to create a Device
+     *     // ... data to create a Bridge
      *   }
      * })
      * 
      */
-    create<T extends DeviceCreateArgs>(args: SelectSubset<T, DeviceCreateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends BridgeCreateArgs>(args: SelectSubset<T, BridgeCreateArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Devices.
-     * @param {DeviceCreateManyArgs} args - Arguments to create many Devices.
+     * Create many Bridges.
+     * @param {BridgeCreateManyArgs} args - Arguments to create many Bridges.
      * @example
-     * // Create many Devices
-     * const device = await prisma.device.createMany({
+     * // Create many Bridges
+     * const bridge = await prisma.bridge.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends DeviceCreateManyArgs>(args?: SelectSubset<T, DeviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends BridgeCreateManyArgs>(args?: SelectSubset<T, BridgeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Devices and returns the data saved in the database.
-     * @param {DeviceCreateManyAndReturnArgs} args - Arguments to create many Devices.
+     * Create many Bridges and returns the data saved in the database.
+     * @param {BridgeCreateManyAndReturnArgs} args - Arguments to create many Bridges.
      * @example
-     * // Create many Devices
-     * const device = await prisma.device.createManyAndReturn({
+     * // Create many Bridges
+     * const bridge = await prisma.bridge.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Devices and only return the `id`
-     * const deviceWithIdOnly = await prisma.device.createManyAndReturn({
+     * // Create many Bridges and only return the `id`
+     * const bridgeWithIdOnly = await prisma.bridge.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -6089,28 +7372,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends DeviceCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends BridgeCreateManyAndReturnArgs>(args?: SelectSubset<T, BridgeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Device.
-     * @param {DeviceDeleteArgs} args - Arguments to delete one Device.
+     * Delete a Bridge.
+     * @param {BridgeDeleteArgs} args - Arguments to delete one Bridge.
      * @example
-     * // Delete one Device
-     * const Device = await prisma.device.delete({
+     * // Delete one Bridge
+     * const Bridge = await prisma.bridge.delete({
      *   where: {
-     *     // ... filter to delete one Device
+     *     // ... filter to delete one Bridge
      *   }
      * })
      * 
      */
-    delete<T extends DeviceDeleteArgs>(args: SelectSubset<T, DeviceDeleteArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends BridgeDeleteArgs>(args: SelectSubset<T, BridgeDeleteArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Device.
-     * @param {DeviceUpdateArgs} args - Arguments to update one Device.
+     * Update one Bridge.
+     * @param {BridgeUpdateArgs} args - Arguments to update one Bridge.
      * @example
-     * // Update one Device
-     * const device = await prisma.device.update({
+     * // Update one Bridge
+     * const bridge = await prisma.bridge.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6120,30 +7403,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends DeviceUpdateArgs>(args: SelectSubset<T, DeviceUpdateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends BridgeUpdateArgs>(args: SelectSubset<T, BridgeUpdateArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Devices.
-     * @param {DeviceDeleteManyArgs} args - Arguments to filter Devices to delete.
+     * Delete zero or more Bridges.
+     * @param {BridgeDeleteManyArgs} args - Arguments to filter Bridges to delete.
      * @example
-     * // Delete a few Devices
-     * const { count } = await prisma.device.deleteMany({
+     * // Delete a few Bridges
+     * const { count } = await prisma.bridge.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends DeviceDeleteManyArgs>(args?: SelectSubset<T, DeviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends BridgeDeleteManyArgs>(args?: SelectSubset<T, BridgeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Devices.
+     * Update zero or more Bridges.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {BridgeUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Devices
-     * const device = await prisma.device.updateMany({
+     * // Update many Bridges
+     * const bridge = await prisma.bridge.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6153,14 +7436,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends DeviceUpdateManyArgs>(args: SelectSubset<T, DeviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends BridgeUpdateManyArgs>(args: SelectSubset<T, BridgeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Devices and returns the data updated in the database.
-     * @param {DeviceUpdateManyAndReturnArgs} args - Arguments to update many Devices.
+     * Update zero or more Bridges and returns the data updated in the database.
+     * @param {BridgeUpdateManyAndReturnArgs} args - Arguments to update many Bridges.
      * @example
-     * // Update many Devices
-     * const device = await prisma.device.updateManyAndReturn({
+     * // Update many Bridges
+     * const bridge = await prisma.bridge.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -6169,8 +7452,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Devices and only return the `id`
-     * const deviceWithIdOnly = await prisma.device.updateManyAndReturn({
+     * // Update zero or more Bridges and only return the `id`
+     * const bridgeWithIdOnly = await prisma.bridge.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -6183,56 +7466,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends DeviceUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends BridgeUpdateManyAndReturnArgs>(args: SelectSubset<T, BridgeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Device.
-     * @param {DeviceUpsertArgs} args - Arguments to update or create a Device.
+     * Create or update one Bridge.
+     * @param {BridgeUpsertArgs} args - Arguments to update or create a Bridge.
      * @example
-     * // Update or create a Device
-     * const device = await prisma.device.upsert({
+     * // Update or create a Bridge
+     * const bridge = await prisma.bridge.upsert({
      *   create: {
-     *     // ... data to create a Device
+     *     // ... data to create a Bridge
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Device we want to update
+     *     // ... the filter for the Bridge we want to update
      *   }
      * })
      */
-    upsert<T extends DeviceUpsertArgs>(args: SelectSubset<T, DeviceUpsertArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends BridgeUpsertArgs>(args: SelectSubset<T, BridgeUpsertArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Devices.
+     * Count the number of Bridges.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceCountArgs} args - Arguments to filter Devices to count.
+     * @param {BridgeCountArgs} args - Arguments to filter Bridges to count.
      * @example
-     * // Count the number of Devices
-     * const count = await prisma.device.count({
+     * // Count the number of Bridges
+     * const count = await prisma.bridge.count({
      *   where: {
-     *     // ... the filter for the Devices we want to count
+     *     // ... the filter for the Bridges we want to count
      *   }
      * })
     **/
-    count<T extends DeviceCountArgs>(
-      args?: Subset<T, DeviceCountArgs>,
+    count<T extends BridgeCountArgs>(
+      args?: Subset<T, BridgeCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], DeviceCountAggregateOutputType>
+          : GetScalarType<T['select'], BridgeCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Device.
+     * Allows you to perform aggregations operations on a Bridge.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {BridgeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -6252,13 +7535,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends DeviceAggregateArgs>(args: Subset<T, DeviceAggregateArgs>): Prisma.PrismaPromise<GetDeviceAggregateType<T>>
+    aggregate<T extends BridgeAggregateArgs>(args: Subset<T, BridgeAggregateArgs>): Prisma.PrismaPromise<GetBridgeAggregateType<T>>
 
     /**
-     * Group by Device.
+     * Group by Bridge.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {DeviceGroupByArgs} args - Group by arguments.
+     * @param {BridgeGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -6273,14 +7556,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends DeviceGroupByArgs,
+      T extends BridgeGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: DeviceGroupByArgs['orderBy'] }
-        : { orderBy?: DeviceGroupByArgs['orderBy'] },
+        ? { orderBy: BridgeGroupByArgs['orderBy'] }
+        : { orderBy?: BridgeGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -6329,22 +7612,23 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, DeviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, BridgeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBridgeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Device model
+   * Fields of the Bridge model
    */
-  readonly fields: DeviceFieldRefs;
+  readonly fields: BridgeFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Device.
+   * The delegate class that acts as a "Promise-like" for Bridge.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__DeviceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__BridgeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends Device$userArgs<ExtArgs> = {}>(args?: Subset<T, Device$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends Bridge$userArgs<ExtArgs> = {}>(args?: Subset<T, Bridge$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Records<T extends Bridge$RecordsArgs<ExtArgs> = {}>(args?: Subset<T, Bridge$RecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6371,414 +7655,413 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Device model
+   * Fields of the Bridge model
    */
-  interface DeviceFieldRefs {
-    readonly id: FieldRef<"Device", 'String'>
-    readonly name: FieldRef<"Device", 'String'>
-    readonly secret: FieldRef<"Device", 'String'>
-    readonly GlobalChoice: FieldRef<"Device", 'Choices'>
-    readonly userId: FieldRef<"Device", 'String'>
-    readonly createdAt: FieldRef<"Device", 'DateTime'>
+  interface BridgeFieldRefs {
+    readonly id: FieldRef<"Bridge", 'String'>
+    readonly name: FieldRef<"Bridge", 'String'>
+    readonly userId: FieldRef<"Bridge", 'String'>
+    readonly secretKey: FieldRef<"Bridge", 'String'>
+    readonly createdAt: FieldRef<"Bridge", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Device findUnique
+   * Bridge findUnique
    */
-  export type DeviceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter, which Device to fetch.
+     * Filter, which Bridge to fetch.
      */
-    where: DeviceWhereUniqueInput
+    where: BridgeWhereUniqueInput
   }
 
   /**
-   * Device findUniqueOrThrow
+   * Bridge findUniqueOrThrow
    */
-  export type DeviceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter, which Device to fetch.
+     * Filter, which Bridge to fetch.
      */
-    where: DeviceWhereUniqueInput
+    where: BridgeWhereUniqueInput
   }
 
   /**
-   * Device findFirst
+   * Bridge findFirst
    */
-  export type DeviceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter, which Device to fetch.
+     * Filter, which Bridge to fetch.
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Devices to fetch.
+     * Determine the order of Bridges to fetch.
      */
-    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    orderBy?: BridgeOrderByWithRelationInput | BridgeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Devices.
+     * Sets the position for searching for Bridges.
      */
-    cursor?: DeviceWhereUniqueInput
+    cursor?: BridgeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Devices from the position of the cursor.
+     * Take `±n` Bridges from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Devices.
+     * Skip the first `n` Bridges.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Devices.
+     * Filter by unique combinations of Bridges.
      */
-    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+    distinct?: BridgeScalarFieldEnum | BridgeScalarFieldEnum[]
   }
 
   /**
-   * Device findFirstOrThrow
+   * Bridge findFirstOrThrow
    */
-  export type DeviceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter, which Device to fetch.
+     * Filter, which Bridge to fetch.
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Devices to fetch.
+     * Determine the order of Bridges to fetch.
      */
-    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    orderBy?: BridgeOrderByWithRelationInput | BridgeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Devices.
+     * Sets the position for searching for Bridges.
      */
-    cursor?: DeviceWhereUniqueInput
+    cursor?: BridgeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Devices from the position of the cursor.
+     * Take `±n` Bridges from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Devices.
+     * Skip the first `n` Bridges.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Devices.
+     * Filter by unique combinations of Bridges.
      */
-    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+    distinct?: BridgeScalarFieldEnum | BridgeScalarFieldEnum[]
   }
 
   /**
-   * Device findMany
+   * Bridge findMany
    */
-  export type DeviceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter, which Devices to fetch.
+     * Filter, which Bridges to fetch.
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Devices to fetch.
+     * Determine the order of Bridges to fetch.
      */
-    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    orderBy?: BridgeOrderByWithRelationInput | BridgeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Devices.
+     * Sets the position for listing Bridges.
      */
-    cursor?: DeviceWhereUniqueInput
+    cursor?: BridgeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Devices from the position of the cursor.
+     * Take `±n` Bridges from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Devices.
+     * Skip the first `n` Bridges.
      */
     skip?: number
-    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+    distinct?: BridgeScalarFieldEnum | BridgeScalarFieldEnum[]
   }
 
   /**
-   * Device create
+   * Bridge create
    */
-  export type DeviceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * The data needed to create a Device.
+     * The data needed to create a Bridge.
      */
-    data: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+    data?: XOR<BridgeCreateInput, BridgeUncheckedCreateInput>
   }
 
   /**
-   * Device createMany
+   * Bridge createMany
    */
-  export type DeviceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Devices.
+     * The data used to create many Bridges.
      */
-    data: DeviceCreateManyInput | DeviceCreateManyInput[]
+    data: BridgeCreateManyInput | BridgeCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Device createManyAndReturn
+   * Bridge createManyAndReturn
    */
-  export type DeviceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelectCreateManyAndReturn<ExtArgs> | null
+    select?: BridgeSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
-     * The data used to create many Devices.
+     * The data used to create many Bridges.
      */
-    data: DeviceCreateManyInput | DeviceCreateManyInput[]
+    data: BridgeCreateManyInput | BridgeCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: BridgeIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Device update
+   * Bridge update
    */
-  export type DeviceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * The data needed to update a Device.
+     * The data needed to update a Bridge.
      */
-    data: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+    data: XOR<BridgeUpdateInput, BridgeUncheckedUpdateInput>
     /**
-     * Choose, which Device to update.
+     * Choose, which Bridge to update.
      */
-    where: DeviceWhereUniqueInput
+    where: BridgeWhereUniqueInput
   }
 
   /**
-   * Device updateMany
+   * Bridge updateMany
    */
-  export type DeviceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Devices.
+     * The data used to update Bridges.
      */
-    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyInput>
+    data: XOR<BridgeUpdateManyMutationInput, BridgeUncheckedUpdateManyInput>
     /**
-     * Filter which Devices to update
+     * Filter which Bridges to update
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
-     * Limit how many Devices to update.
+     * Limit how many Bridges to update.
      */
     limit?: number
   }
 
   /**
-   * Device updateManyAndReturn
+   * Bridge updateManyAndReturn
    */
-  export type DeviceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: BridgeSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
-     * The data used to update Devices.
+     * The data used to update Bridges.
      */
-    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyInput>
+    data: XOR<BridgeUpdateManyMutationInput, BridgeUncheckedUpdateManyInput>
     /**
-     * Filter which Devices to update
+     * Filter which Bridges to update
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
-     * Limit how many Devices to update.
+     * Limit how many Bridges to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: BridgeIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Device upsert
+   * Bridge upsert
    */
-  export type DeviceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * The filter to search for the Device to update in case it exists.
+     * The filter to search for the Bridge to update in case it exists.
      */
-    where: DeviceWhereUniqueInput
+    where: BridgeWhereUniqueInput
     /**
-     * In case the Device found by the `where` argument doesn't exist, create a new Device with this data.
+     * In case the Bridge found by the `where` argument doesn't exist, create a new Bridge with this data.
      */
-    create: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+    create: XOR<BridgeCreateInput, BridgeUncheckedCreateInput>
     /**
-     * In case the Device was found with the provided `where` argument, update it with this data.
+     * In case the Bridge was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+    update: XOR<BridgeUpdateInput, BridgeUncheckedUpdateInput>
   }
 
   /**
-   * Device delete
+   * Bridge delete
    */
-  export type DeviceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Bridge
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: BridgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Bridge
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: BridgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: BridgeInclude<ExtArgs> | null
     /**
-     * Filter which Device to delete.
+     * Filter which Bridge to delete.
      */
-    where: DeviceWhereUniqueInput
+    where: BridgeWhereUniqueInput
   }
 
   /**
-   * Device deleteMany
+   * Bridge deleteMany
    */
-  export type DeviceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BridgeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Devices to delete
+     * Filter which Bridges to delete
      */
-    where?: DeviceWhereInput
+    where?: BridgeWhereInput
     /**
-     * Limit how many Devices to delete.
+     * Limit how many Bridges to delete.
      */
     limit?: number
   }
 
   /**
-   * Device.user
+   * Bridge.user
    */
-  export type Device$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Bridge$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the User
      */
@@ -6795,21 +8078,1124 @@ export namespace Prisma {
   }
 
   /**
-   * Device without action
+   * Bridge.Records
    */
-  export type DeviceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Bridge$RecordsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Device
+     * Select specific fields to fetch from the Records
      */
-    select?: DeviceSelect<ExtArgs> | null
+    select?: RecordsSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Device
+     * Omit specific fields from the Records
      */
-    omit?: DeviceOmit<ExtArgs> | null
+    omit?: RecordsOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DeviceInclude<ExtArgs> | null
+    include?: RecordsInclude<ExtArgs> | null
+    where?: RecordsWhereInput
+    orderBy?: RecordsOrderByWithRelationInput | RecordsOrderByWithRelationInput[]
+    cursor?: RecordsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * Bridge without action
+   */
+  export type BridgeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bridge
+     */
+    select?: BridgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bridge
+     */
+    omit?: BridgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BridgeInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Records
+   */
+
+  export type AggregateRecords = {
+    _count: RecordsCountAggregateOutputType | null
+    _avg: RecordsAvgAggregateOutputType | null
+    _sum: RecordsSumAggregateOutputType | null
+    _min: RecordsMinAggregateOutputType | null
+    _max: RecordsMaxAggregateOutputType | null
+  }
+
+  export type RecordsAvgAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type RecordsSumAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type RecordsMinAggregateOutputType = {
+    id: string | null
+    bridgeId: string | null
+    createdAt: Date | null
+    weight: number | null
+  }
+
+  export type RecordsMaxAggregateOutputType = {
+    id: string | null
+    bridgeId: string | null
+    createdAt: Date | null
+    weight: number | null
+  }
+
+  export type RecordsCountAggregateOutputType = {
+    id: number
+    bridgeId: number
+    createdAt: number
+    weight: number
+    _all: number
+  }
+
+
+  export type RecordsAvgAggregateInputType = {
+    weight?: true
+  }
+
+  export type RecordsSumAggregateInputType = {
+    weight?: true
+  }
+
+  export type RecordsMinAggregateInputType = {
+    id?: true
+    bridgeId?: true
+    createdAt?: true
+    weight?: true
+  }
+
+  export type RecordsMaxAggregateInputType = {
+    id?: true
+    bridgeId?: true
+    createdAt?: true
+    weight?: true
+  }
+
+  export type RecordsCountAggregateInputType = {
+    id?: true
+    bridgeId?: true
+    createdAt?: true
+    weight?: true
+    _all?: true
+  }
+
+  export type RecordsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Records to aggregate.
+     */
+    where?: RecordsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Records to fetch.
+     */
+    orderBy?: RecordsOrderByWithRelationInput | RecordsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RecordsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Records from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Records.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Records
+    **/
+    _count?: true | RecordsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RecordsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RecordsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RecordsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RecordsMaxAggregateInputType
+  }
+
+  export type GetRecordsAggregateType<T extends RecordsAggregateArgs> = {
+        [P in keyof T & keyof AggregateRecords]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRecords[P]>
+      : GetScalarType<T[P], AggregateRecords[P]>
+  }
+
+
+
+
+  export type RecordsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RecordsWhereInput
+    orderBy?: RecordsOrderByWithAggregationInput | RecordsOrderByWithAggregationInput[]
+    by: RecordsScalarFieldEnum[] | RecordsScalarFieldEnum
+    having?: RecordsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RecordsCountAggregateInputType | true
+    _avg?: RecordsAvgAggregateInputType
+    _sum?: RecordsSumAggregateInputType
+    _min?: RecordsMinAggregateInputType
+    _max?: RecordsMaxAggregateInputType
+  }
+
+  export type RecordsGroupByOutputType = {
+    id: string
+    bridgeId: string
+    createdAt: Date
+    weight: number
+    _count: RecordsCountAggregateOutputType | null
+    _avg: RecordsAvgAggregateOutputType | null
+    _sum: RecordsSumAggregateOutputType | null
+    _min: RecordsMinAggregateOutputType | null
+    _max: RecordsMaxAggregateOutputType | null
+  }
+
+  type GetRecordsGroupByPayload<T extends RecordsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RecordsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RecordsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RecordsGroupByOutputType[P]>
+            : GetScalarType<T[P], RecordsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RecordsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bridgeId?: boolean
+    createdAt?: boolean
+    weight?: boolean
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["records"]>
+
+  export type RecordsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bridgeId?: boolean
+    createdAt?: boolean
+    weight?: boolean
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["records"]>
+
+  export type RecordsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    bridgeId?: boolean
+    createdAt?: boolean
+    weight?: boolean
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["records"]>
+
+  export type RecordsSelectScalar = {
+    id?: boolean
+    bridgeId?: boolean
+    createdAt?: boolean
+    weight?: boolean
+  }
+
+  export type RecordsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bridgeId" | "createdAt" | "weight", ExtArgs["result"]["records"]>
+  export type RecordsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }
+  export type RecordsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }
+  export type RecordsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bridge?: boolean | BridgeDefaultArgs<ExtArgs>
+  }
+
+  export type $RecordsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Records"
+    objects: {
+      bridge: Prisma.$BridgePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      bridgeId: string
+      createdAt: Date
+      weight: number
+    }, ExtArgs["result"]["records"]>
+    composites: {}
+  }
+
+  type RecordsGetPayload<S extends boolean | null | undefined | RecordsDefaultArgs> = $Result.GetResult<Prisma.$RecordsPayload, S>
+
+  type RecordsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RecordsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RecordsCountAggregateInputType | true
+    }
+
+  export interface RecordsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Records'], meta: { name: 'Records' } }
+    /**
+     * Find zero or one Records that matches the filter.
+     * @param {RecordsFindUniqueArgs} args - Arguments to find a Records
+     * @example
+     * // Get one Records
+     * const records = await prisma.records.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RecordsFindUniqueArgs>(args: SelectSubset<T, RecordsFindUniqueArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Records that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RecordsFindUniqueOrThrowArgs} args - Arguments to find a Records
+     * @example
+     * // Get one Records
+     * const records = await prisma.records.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RecordsFindUniqueOrThrowArgs>(args: SelectSubset<T, RecordsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Records that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsFindFirstArgs} args - Arguments to find a Records
+     * @example
+     * // Get one Records
+     * const records = await prisma.records.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RecordsFindFirstArgs>(args?: SelectSubset<T, RecordsFindFirstArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Records that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsFindFirstOrThrowArgs} args - Arguments to find a Records
+     * @example
+     * // Get one Records
+     * const records = await prisma.records.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RecordsFindFirstOrThrowArgs>(args?: SelectSubset<T, RecordsFindFirstOrThrowArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Records that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Records
+     * const records = await prisma.records.findMany()
+     * 
+     * // Get first 10 Records
+     * const records = await prisma.records.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const recordsWithIdOnly = await prisma.records.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RecordsFindManyArgs>(args?: SelectSubset<T, RecordsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Records.
+     * @param {RecordsCreateArgs} args - Arguments to create a Records.
+     * @example
+     * // Create one Records
+     * const Records = await prisma.records.create({
+     *   data: {
+     *     // ... data to create a Records
+     *   }
+     * })
+     * 
+     */
+    create<T extends RecordsCreateArgs>(args: SelectSubset<T, RecordsCreateArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Records.
+     * @param {RecordsCreateManyArgs} args - Arguments to create many Records.
+     * @example
+     * // Create many Records
+     * const records = await prisma.records.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RecordsCreateManyArgs>(args?: SelectSubset<T, RecordsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Records and returns the data saved in the database.
+     * @param {RecordsCreateManyAndReturnArgs} args - Arguments to create many Records.
+     * @example
+     * // Create many Records
+     * const records = await prisma.records.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Records and only return the `id`
+     * const recordsWithIdOnly = await prisma.records.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RecordsCreateManyAndReturnArgs>(args?: SelectSubset<T, RecordsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Records.
+     * @param {RecordsDeleteArgs} args - Arguments to delete one Records.
+     * @example
+     * // Delete one Records
+     * const Records = await prisma.records.delete({
+     *   where: {
+     *     // ... filter to delete one Records
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RecordsDeleteArgs>(args: SelectSubset<T, RecordsDeleteArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Records.
+     * @param {RecordsUpdateArgs} args - Arguments to update one Records.
+     * @example
+     * // Update one Records
+     * const records = await prisma.records.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RecordsUpdateArgs>(args: SelectSubset<T, RecordsUpdateArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Records.
+     * @param {RecordsDeleteManyArgs} args - Arguments to filter Records to delete.
+     * @example
+     * // Delete a few Records
+     * const { count } = await prisma.records.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RecordsDeleteManyArgs>(args?: SelectSubset<T, RecordsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Records.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Records
+     * const records = await prisma.records.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RecordsUpdateManyArgs>(args: SelectSubset<T, RecordsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Records and returns the data updated in the database.
+     * @param {RecordsUpdateManyAndReturnArgs} args - Arguments to update many Records.
+     * @example
+     * // Update many Records
+     * const records = await prisma.records.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Records and only return the `id`
+     * const recordsWithIdOnly = await prisma.records.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RecordsUpdateManyAndReturnArgs>(args: SelectSubset<T, RecordsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Records.
+     * @param {RecordsUpsertArgs} args - Arguments to update or create a Records.
+     * @example
+     * // Update or create a Records
+     * const records = await prisma.records.upsert({
+     *   create: {
+     *     // ... data to create a Records
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Records we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RecordsUpsertArgs>(args: SelectSubset<T, RecordsUpsertArgs<ExtArgs>>): Prisma__RecordsClient<$Result.GetResult<Prisma.$RecordsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Records.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsCountArgs} args - Arguments to filter Records to count.
+     * @example
+     * // Count the number of Records
+     * const count = await prisma.records.count({
+     *   where: {
+     *     // ... the filter for the Records we want to count
+     *   }
+     * })
+    **/
+    count<T extends RecordsCountArgs>(
+      args?: Subset<T, RecordsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RecordsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Records.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RecordsAggregateArgs>(args: Subset<T, RecordsAggregateArgs>): Prisma.PrismaPromise<GetRecordsAggregateType<T>>
+
+    /**
+     * Group by Records.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RecordsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RecordsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RecordsGroupByArgs['orderBy'] }
+        : { orderBy?: RecordsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RecordsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRecordsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Records model
+   */
+  readonly fields: RecordsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Records.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RecordsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    bridge<T extends BridgeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BridgeDefaultArgs<ExtArgs>>): Prisma__BridgeClient<$Result.GetResult<Prisma.$BridgePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Records model
+   */
+  interface RecordsFieldRefs {
+    readonly id: FieldRef<"Records", 'String'>
+    readonly bridgeId: FieldRef<"Records", 'String'>
+    readonly createdAt: FieldRef<"Records", 'DateTime'>
+    readonly weight: FieldRef<"Records", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Records findUnique
+   */
+  export type RecordsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter, which Records to fetch.
+     */
+    where: RecordsWhereUniqueInput
+  }
+
+  /**
+   * Records findUniqueOrThrow
+   */
+  export type RecordsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter, which Records to fetch.
+     */
+    where: RecordsWhereUniqueInput
+  }
+
+  /**
+   * Records findFirst
+   */
+  export type RecordsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter, which Records to fetch.
+     */
+    where?: RecordsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Records to fetch.
+     */
+    orderBy?: RecordsOrderByWithRelationInput | RecordsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Records.
+     */
+    cursor?: RecordsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Records from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Records.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Records.
+     */
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * Records findFirstOrThrow
+   */
+  export type RecordsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter, which Records to fetch.
+     */
+    where?: RecordsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Records to fetch.
+     */
+    orderBy?: RecordsOrderByWithRelationInput | RecordsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Records.
+     */
+    cursor?: RecordsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Records from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Records.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Records.
+     */
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * Records findMany
+   */
+  export type RecordsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter, which Records to fetch.
+     */
+    where?: RecordsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Records to fetch.
+     */
+    orderBy?: RecordsOrderByWithRelationInput | RecordsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Records.
+     */
+    cursor?: RecordsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Records from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Records.
+     */
+    skip?: number
+    distinct?: RecordsScalarFieldEnum | RecordsScalarFieldEnum[]
+  }
+
+  /**
+   * Records create
+   */
+  export type RecordsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Records.
+     */
+    data: XOR<RecordsCreateInput, RecordsUncheckedCreateInput>
+  }
+
+  /**
+   * Records createMany
+   */
+  export type RecordsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Records.
+     */
+    data: RecordsCreateManyInput | RecordsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Records createManyAndReturn
+   */
+  export type RecordsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * The data used to create many Records.
+     */
+    data: RecordsCreateManyInput | RecordsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Records update
+   */
+  export type RecordsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Records.
+     */
+    data: XOR<RecordsUpdateInput, RecordsUncheckedUpdateInput>
+    /**
+     * Choose, which Records to update.
+     */
+    where: RecordsWhereUniqueInput
+  }
+
+  /**
+   * Records updateMany
+   */
+  export type RecordsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Records.
+     */
+    data: XOR<RecordsUpdateManyMutationInput, RecordsUncheckedUpdateManyInput>
+    /**
+     * Filter which Records to update
+     */
+    where?: RecordsWhereInput
+    /**
+     * Limit how many Records to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Records updateManyAndReturn
+   */
+  export type RecordsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * The data used to update Records.
+     */
+    data: XOR<RecordsUpdateManyMutationInput, RecordsUncheckedUpdateManyInput>
+    /**
+     * Filter which Records to update
+     */
+    where?: RecordsWhereInput
+    /**
+     * Limit how many Records to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Records upsert
+   */
+  export type RecordsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Records to update in case it exists.
+     */
+    where: RecordsWhereUniqueInput
+    /**
+     * In case the Records found by the `where` argument doesn't exist, create a new Records with this data.
+     */
+    create: XOR<RecordsCreateInput, RecordsUncheckedCreateInput>
+    /**
+     * In case the Records was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RecordsUpdateInput, RecordsUncheckedUpdateInput>
+  }
+
+  /**
+   * Records delete
+   */
+  export type RecordsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
+    /**
+     * Filter which Records to delete.
+     */
+    where: RecordsWhereUniqueInput
+  }
+
+  /**
+   * Records deleteMany
+   */
+  export type RecordsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Records to delete
+     */
+    where?: RecordsWhereInput
+    /**
+     * Limit how many Records to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Records without action
+   */
+  export type RecordsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Records
+     */
+    select?: RecordsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Records
+     */
+    omit?: RecordsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RecordsInclude<ExtArgs> | null
   }
 
 
@@ -6825,6 +9211,17 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const PostScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    createdById: 'createdById'
+  };
+
+  export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -6886,16 +9283,25 @@ export namespace Prisma {
   export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
-  export const DeviceScalarFieldEnum: {
+  export const BridgeScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    secret: 'secret',
-    GlobalChoice: 'GlobalChoice',
     userId: 'userId',
+    secretKey: 'secretKey',
     createdAt: 'createdAt'
   };
 
-  export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
+  export type BridgeScalarFieldEnum = (typeof BridgeScalarFieldEnum)[keyof typeof BridgeScalarFieldEnum]
+
+
+  export const RecordsScalarFieldEnum: {
+    id: 'id',
+    bridgeId: 'bridgeId',
+    createdAt: 'createdAt',
+    weight: 'weight'
+  };
+
+  export type RecordsScalarFieldEnum = (typeof RecordsScalarFieldEnum)[keyof typeof RecordsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6942,13 +9348,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -6963,16 +9362,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Choices'
+   * Reference to a field of type 'Boolean'
    */
-  export type EnumChoicesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Choices'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Choices[]'
+   * Reference to a field of type 'Float'
    */
-  export type ListEnumChoicesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Choices[]'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -6993,6 +9399,61 @@ export namespace Prisma {
    */
 
 
+  export type PostWhereInput = {
+    AND?: PostWhereInput | PostWhereInput[]
+    OR?: PostWhereInput[]
+    NOT?: PostWhereInput | PostWhereInput[]
+    id?: StringFilter<"Post"> | string
+    name?: StringFilter<"Post"> | string
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    createdById?: StringFilter<"Post"> | string
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PostOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    createdBy?: UserOrderByWithRelationInput
+  }
+
+  export type PostWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PostWhereInput | PostWhereInput[]
+    OR?: PostWhereInput[]
+    NOT?: PostWhereInput | PostWhereInput[]
+    name?: StringFilter<"Post"> | string
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    createdById?: StringFilter<"Post"> | string
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PostOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+    _count?: PostCountOrderByAggregateInput
+    _max?: PostMaxOrderByAggregateInput
+    _min?: PostMinOrderByAggregateInput
+  }
+
+  export type PostScalarWhereWithAggregatesInput = {
+    AND?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
+    OR?: PostScalarWhereWithAggregatesInput[]
+    NOT?: PostScalarWhereWithAggregatesInput | PostScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Post"> | string
+    name?: StringWithAggregatesFilter<"Post"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
+    createdById?: StringWithAggregatesFilter<"Post"> | string
+  }
+
   export type UserWhereInput = {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -7007,7 +9468,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-    Devices?: DeviceListRelationFilter
+    posts?: PostListRelationFilter
+    Bridges?: BridgeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7021,25 +9483,27 @@ export namespace Prisma {
     updatedAt?: SortOrder
     sessions?: SessionOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
-    Devices?: DeviceOrderByRelationAggregateInput
+    posts?: PostOrderByRelationAggregateInput
+    Bridges?: BridgeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    secret?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
     image?: StringNullableFilter<"User"> | string | null
-    secret?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     sessions?: SessionListRelationFilter
     accounts?: AccountListRelationFilter
-    Devices?: DeviceListRelationFilter
-  }, "id" | "email">
+    posts?: PostListRelationFilter
+    Bridges?: BridgeListRelationFilter
+  }, "id" | "secret" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7291,64 +9755,169 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Verification"> | Date | string
   }
 
-  export type DeviceWhereInput = {
-    AND?: DeviceWhereInput | DeviceWhereInput[]
-    OR?: DeviceWhereInput[]
-    NOT?: DeviceWhereInput | DeviceWhereInput[]
-    id?: StringFilter<"Device"> | string
-    name?: StringFilter<"Device"> | string
-    secret?: StringFilter<"Device"> | string
-    GlobalChoice?: EnumChoicesFilter<"Device"> | $Enums.Choices
-    userId?: StringNullableFilter<"Device"> | string | null
-    createdAt?: DateTimeFilter<"Device"> | Date | string
+  export type BridgeWhereInput = {
+    AND?: BridgeWhereInput | BridgeWhereInput[]
+    OR?: BridgeWhereInput[]
+    NOT?: BridgeWhereInput | BridgeWhereInput[]
+    id?: StringFilter<"Bridge"> | string
+    name?: StringNullableFilter<"Bridge"> | string | null
+    userId?: StringNullableFilter<"Bridge"> | string | null
+    secretKey?: StringFilter<"Bridge"> | string
+    createdAt?: DateTimeFilter<"Bridge"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Records?: RecordsListRelationFilter
   }
 
-  export type DeviceOrderByWithRelationInput = {
+  export type BridgeOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
-    secret?: SortOrder
-    GlobalChoice?: SortOrder
+    name?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
+    secretKey?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    Records?: RecordsOrderByRelationAggregateInput
   }
 
-  export type DeviceWhereUniqueInput = Prisma.AtLeast<{
+  export type BridgeWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    secret?: string
-    AND?: DeviceWhereInput | DeviceWhereInput[]
-    OR?: DeviceWhereInput[]
-    NOT?: DeviceWhereInput | DeviceWhereInput[]
-    name?: StringFilter<"Device"> | string
-    GlobalChoice?: EnumChoicesFilter<"Device"> | $Enums.Choices
-    userId?: StringNullableFilter<"Device"> | string | null
-    createdAt?: DateTimeFilter<"Device"> | Date | string
+    secretKey?: string
+    AND?: BridgeWhereInput | BridgeWhereInput[]
+    OR?: BridgeWhereInput[]
+    NOT?: BridgeWhereInput | BridgeWhereInput[]
+    name?: StringNullableFilter<"Bridge"> | string | null
+    userId?: StringNullableFilter<"Bridge"> | string | null
+    createdAt?: DateTimeFilter<"Bridge"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "secret">
+    Records?: RecordsListRelationFilter
+  }, "id" | "secretKey">
 
-  export type DeviceOrderByWithAggregationInput = {
+  export type BridgeOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
-    secret?: SortOrder
-    GlobalChoice?: SortOrder
+    name?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
+    secretKey?: SortOrder
     createdAt?: SortOrder
-    _count?: DeviceCountOrderByAggregateInput
-    _max?: DeviceMaxOrderByAggregateInput
-    _min?: DeviceMinOrderByAggregateInput
+    _count?: BridgeCountOrderByAggregateInput
+    _max?: BridgeMaxOrderByAggregateInput
+    _min?: BridgeMinOrderByAggregateInput
   }
 
-  export type DeviceScalarWhereWithAggregatesInput = {
-    AND?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
-    OR?: DeviceScalarWhereWithAggregatesInput[]
-    NOT?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Device"> | string
-    name?: StringWithAggregatesFilter<"Device"> | string
-    secret?: StringWithAggregatesFilter<"Device"> | string
-    GlobalChoice?: EnumChoicesWithAggregatesFilter<"Device"> | $Enums.Choices
-    userId?: StringNullableWithAggregatesFilter<"Device"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+  export type BridgeScalarWhereWithAggregatesInput = {
+    AND?: BridgeScalarWhereWithAggregatesInput | BridgeScalarWhereWithAggregatesInput[]
+    OR?: BridgeScalarWhereWithAggregatesInput[]
+    NOT?: BridgeScalarWhereWithAggregatesInput | BridgeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Bridge"> | string
+    name?: StringNullableWithAggregatesFilter<"Bridge"> | string | null
+    userId?: StringNullableWithAggregatesFilter<"Bridge"> | string | null
+    secretKey?: StringWithAggregatesFilter<"Bridge"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Bridge"> | Date | string
+  }
+
+  export type RecordsWhereInput = {
+    AND?: RecordsWhereInput | RecordsWhereInput[]
+    OR?: RecordsWhereInput[]
+    NOT?: RecordsWhereInput | RecordsWhereInput[]
+    id?: StringFilter<"Records"> | string
+    bridgeId?: StringFilter<"Records"> | string
+    createdAt?: DateTimeFilter<"Records"> | Date | string
+    weight?: FloatFilter<"Records"> | number
+    bridge?: XOR<BridgeScalarRelationFilter, BridgeWhereInput>
+  }
+
+  export type RecordsOrderByWithRelationInput = {
+    id?: SortOrder
+    bridgeId?: SortOrder
+    createdAt?: SortOrder
+    weight?: SortOrder
+    bridge?: BridgeOrderByWithRelationInput
+  }
+
+  export type RecordsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RecordsWhereInput | RecordsWhereInput[]
+    OR?: RecordsWhereInput[]
+    NOT?: RecordsWhereInput | RecordsWhereInput[]
+    bridgeId?: StringFilter<"Records"> | string
+    createdAt?: DateTimeFilter<"Records"> | Date | string
+    weight?: FloatFilter<"Records"> | number
+    bridge?: XOR<BridgeScalarRelationFilter, BridgeWhereInput>
+  }, "id">
+
+  export type RecordsOrderByWithAggregationInput = {
+    id?: SortOrder
+    bridgeId?: SortOrder
+    createdAt?: SortOrder
+    weight?: SortOrder
+    _count?: RecordsCountOrderByAggregateInput
+    _avg?: RecordsAvgOrderByAggregateInput
+    _max?: RecordsMaxOrderByAggregateInput
+    _min?: RecordsMinOrderByAggregateInput
+    _sum?: RecordsSumOrderByAggregateInput
+  }
+
+  export type RecordsScalarWhereWithAggregatesInput = {
+    AND?: RecordsScalarWhereWithAggregatesInput | RecordsScalarWhereWithAggregatesInput[]
+    OR?: RecordsScalarWhereWithAggregatesInput[]
+    NOT?: RecordsScalarWhereWithAggregatesInput | RecordsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Records"> | string
+    bridgeId?: StringWithAggregatesFilter<"Records"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Records"> | Date | string
+    weight?: FloatWithAggregatesFilter<"Records"> | number
+  }
+
+  export type PostCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutPostsInput
+  }
+
+  export type PostUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type PostUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutPostsNestedInput
+  }
+
+  export type PostUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PostCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdById: string
+  }
+
+  export type PostUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateInput = {
@@ -7362,7 +9931,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
-    Devices?: DeviceCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7376,7 +9946,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    Devices?: DeviceUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7390,7 +9961,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7404,7 +9976,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7690,66 +10263,111 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DeviceCreateInput = {
+  export type BridgeCreateInput = {
     id?: string
-    name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
+    name?: string | null
+    secretKey?: string
     createdAt?: Date | string
-    user?: UserCreateNestedOneWithoutDevicesInput
+    user?: UserCreateNestedOneWithoutBridgesInput
+    Records?: RecordsCreateNestedManyWithoutBridgeInput
   }
 
-  export type DeviceUncheckedCreateInput = {
+  export type BridgeUncheckedCreateInput = {
     id?: string
-    name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
+    name?: string | null
     userId?: string | null
+    secretKey?: string
     createdAt?: Date | string
+    Records?: RecordsUncheckedCreateNestedManyWithoutBridgeInput
   }
 
-  export type DeviceUpdateInput = {
+  export type BridgeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutDevicesNestedInput
+    user?: UserUpdateOneWithoutBridgesNestedInput
+    Records?: RecordsUpdateManyWithoutBridgeNestedInput
   }
 
-  export type DeviceUncheckedUpdateInput = {
+  export type BridgeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Records?: RecordsUncheckedUpdateManyWithoutBridgeNestedInput
   }
 
-  export type DeviceCreateManyInput = {
+  export type BridgeCreateManyInput = {
     id?: string
-    name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
+    name?: string | null
     userId?: string | null
+    secretKey?: string
     createdAt?: Date | string
   }
 
-  export type DeviceUpdateManyMutationInput = {
+  export type BridgeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DeviceUncheckedUpdateManyInput = {
+  export type BridgeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RecordsCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    weight: number
+    bridge: BridgeCreateNestedOneWithoutRecordsInput
+  }
+
+  export type RecordsUncheckedCreateInput = {
+    id?: string
+    bridgeId: string
+    createdAt?: Date | string
+    weight: number
+  }
+
+  export type RecordsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    bridge?: BridgeUpdateOneRequiredWithoutRecordsNestedInput
+  }
+
+  export type RecordsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bridgeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type RecordsCreateManyInput = {
+    id?: string
+    bridgeId: string
+    createdAt?: Date | string
+    weight: number
+  }
+
+  export type RecordsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type RecordsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    bridgeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7765,6 +10383,78 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type PostCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type PostMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type PostMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdById?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -7787,17 +10477,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type SessionListRelationFilter = {
     every?: SessionWhereInput
     some?: SessionWhereInput
@@ -7810,10 +10489,16 @@ export namespace Prisma {
     none?: AccountWhereInput
   }
 
-  export type DeviceListRelationFilter = {
-    every?: DeviceWhereInput
-    some?: DeviceWhereInput
-    none?: DeviceWhereInput
+  export type PostListRelationFilter = {
+    every?: PostWhereInput
+    some?: PostWhereInput
+    none?: PostWhereInput
+  }
+
+  export type BridgeListRelationFilter = {
+    every?: BridgeWhereInput
+    some?: BridgeWhereInput
+    none?: BridgeWhereInput
   }
 
   export type SortOrderInput = {
@@ -7829,7 +10514,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type DeviceOrderByRelationAggregateInput = {
+  export type PostOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BridgeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -7866,24 +10555,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -7908,25 +10579,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -8062,53 +10714,126 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type EnumChoicesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Choices | EnumChoicesFieldRefInput<$PrismaModel>
-    in?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    not?: NestedEnumChoicesFilter<$PrismaModel> | $Enums.Choices
-  }
-
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
   }
 
-  export type DeviceCountOrderByAggregateInput = {
+  export type RecordsListRelationFilter = {
+    every?: RecordsWhereInput
+    some?: RecordsWhereInput
+    none?: RecordsWhereInput
+  }
+
+  export type RecordsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BridgeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    secret?: SortOrder
-    GlobalChoice?: SortOrder
     userId?: SortOrder
+    secretKey?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type DeviceMaxOrderByAggregateInput = {
+  export type BridgeMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    secret?: SortOrder
-    GlobalChoice?: SortOrder
     userId?: SortOrder
+    secretKey?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type DeviceMinOrderByAggregateInput = {
+  export type BridgeMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    secret?: SortOrder
-    GlobalChoice?: SortOrder
     userId?: SortOrder
+    secretKey?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type EnumChoicesWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Choices | EnumChoicesFieldRefInput<$PrismaModel>
-    in?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    not?: NestedEnumChoicesWithAggregatesFilter<$PrismaModel> | $Enums.Choices
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type BridgeScalarRelationFilter = {
+    is?: BridgeWhereInput
+    isNot?: BridgeWhereInput
+  }
+
+  export type RecordsCountOrderByAggregateInput = {
+    id?: SortOrder
+    bridgeId?: SortOrder
+    createdAt?: SortOrder
+    weight?: SortOrder
+  }
+
+  export type RecordsAvgOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type RecordsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    bridgeId?: SortOrder
+    createdAt?: SortOrder
+    weight?: SortOrder
+  }
+
+  export type RecordsMinOrderByAggregateInput = {
+    id?: SortOrder
+    bridgeId?: SortOrder
+    createdAt?: SortOrder
+    weight?: SortOrder
+  }
+
+  export type RecordsSumOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumChoicesFilter<$PrismaModel>
-    _max?: NestedEnumChoicesFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type UserCreateNestedOneWithoutPostsInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutPostsNestedInput = {
+    create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostsInput
+    upsert?: UserUpsertWithoutPostsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -8125,11 +10850,18 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type DeviceCreateNestedManyWithoutUserInput = {
-    create?: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput> | DeviceCreateWithoutUserInput[] | DeviceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeviceCreateOrConnectWithoutUserInput | DeviceCreateOrConnectWithoutUserInput[]
-    createMany?: DeviceCreateManyUserInputEnvelope
-    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  export type PostCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
+    createMany?: PostCreateManyCreatedByInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+  }
+
+  export type BridgeCreateNestedManyWithoutUserInput = {
+    create?: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput> | BridgeCreateWithoutUserInput[] | BridgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BridgeCreateOrConnectWithoutUserInput | BridgeCreateOrConnectWithoutUserInput[]
+    createMany?: BridgeCreateManyUserInputEnvelope
+    connect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -8146,15 +10878,18 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type DeviceUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput> | DeviceCreateWithoutUserInput[] | DeviceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeviceCreateOrConnectWithoutUserInput | DeviceCreateOrConnectWithoutUserInput[]
-    createMany?: DeviceCreateManyUserInputEnvelope
-    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  export type PostUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
+    createMany?: PostCreateManyCreatedByInputEnvelope
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
+  export type BridgeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput> | BridgeCreateWithoutUserInput[] | BridgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BridgeCreateOrConnectWithoutUserInput | BridgeCreateOrConnectWithoutUserInput[]
+    createMany?: BridgeCreateManyUserInputEnvelope
+    connect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8163,10 +10898,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -8197,18 +10928,32 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type DeviceUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput> | DeviceCreateWithoutUserInput[] | DeviceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeviceCreateOrConnectWithoutUserInput | DeviceCreateOrConnectWithoutUserInput[]
-    upsert?: DeviceUpsertWithWhereUniqueWithoutUserInput | DeviceUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DeviceCreateManyUserInputEnvelope
-    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    update?: DeviceUpdateWithWhereUniqueWithoutUserInput | DeviceUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DeviceUpdateManyWithWhereWithoutUserInput | DeviceUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  export type PostUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutCreatedByInput | PostUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: PostCreateManyCreatedByInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutCreatedByInput | PostUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutCreatedByInput | PostUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type BridgeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput> | BridgeCreateWithoutUserInput[] | BridgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BridgeCreateOrConnectWithoutUserInput | BridgeCreateOrConnectWithoutUserInput[]
+    upsert?: BridgeUpsertWithWhereUniqueWithoutUserInput | BridgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BridgeCreateManyUserInputEnvelope
+    set?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    disconnect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    delete?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    connect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    update?: BridgeUpdateWithWhereUniqueWithoutUserInput | BridgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BridgeUpdateManyWithWhereWithoutUserInput | BridgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BridgeScalarWhereInput | BridgeScalarWhereInput[]
   }
 
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -8239,18 +10984,32 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type DeviceUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput> | DeviceCreateWithoutUserInput[] | DeviceUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DeviceCreateOrConnectWithoutUserInput | DeviceCreateOrConnectWithoutUserInput[]
-    upsert?: DeviceUpsertWithWhereUniqueWithoutUserInput | DeviceUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DeviceCreateManyUserInputEnvelope
-    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
-    update?: DeviceUpdateWithWhereUniqueWithoutUserInput | DeviceUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DeviceUpdateManyWithWhereWithoutUserInput | DeviceUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  export type PostUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput> | PostCreateWithoutCreatedByInput[] | PostUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: PostCreateOrConnectWithoutCreatedByInput | PostCreateOrConnectWithoutCreatedByInput[]
+    upsert?: PostUpsertWithWhereUniqueWithoutCreatedByInput | PostUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: PostCreateManyCreatedByInputEnvelope
+    set?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    disconnect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    delete?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    connect?: PostWhereUniqueInput | PostWhereUniqueInput[]
+    update?: PostUpdateWithWhereUniqueWithoutCreatedByInput | PostUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: PostUpdateManyWithWhereWithoutCreatedByInput | PostUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: PostScalarWhereInput | PostScalarWhereInput[]
+  }
+
+  export type BridgeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput> | BridgeCreateWithoutUserInput[] | BridgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BridgeCreateOrConnectWithoutUserInput | BridgeCreateOrConnectWithoutUserInput[]
+    upsert?: BridgeUpsertWithWhereUniqueWithoutUserInput | BridgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BridgeCreateManyUserInputEnvelope
+    set?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    disconnect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    delete?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    connect?: BridgeWhereUniqueInput | BridgeWhereUniqueInput[]
+    update?: BridgeUpdateWithWhereUniqueWithoutUserInput | BridgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BridgeUpdateManyWithWhereWithoutUserInput | BridgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BridgeScalarWhereInput | BridgeScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -8285,24 +11044,84 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
   }
 
-  export type UserCreateNestedOneWithoutDevicesInput = {
-    create?: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDevicesInput
+  export type UserCreateNestedOneWithoutBridgesInput = {
+    create?: XOR<UserCreateWithoutBridgesInput, UserUncheckedCreateWithoutBridgesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBridgesInput
     connect?: UserWhereUniqueInput
   }
 
-  export type EnumChoicesFieldUpdateOperationsInput = {
-    set?: $Enums.Choices
+  export type RecordsCreateNestedManyWithoutBridgeInput = {
+    create?: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput> | RecordsCreateWithoutBridgeInput[] | RecordsUncheckedCreateWithoutBridgeInput[]
+    connectOrCreate?: RecordsCreateOrConnectWithoutBridgeInput | RecordsCreateOrConnectWithoutBridgeInput[]
+    createMany?: RecordsCreateManyBridgeInputEnvelope
+    connect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
   }
 
-  export type UserUpdateOneWithoutDevicesNestedInput = {
-    create?: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutDevicesInput
-    upsert?: UserUpsertWithoutDevicesInput
+  export type RecordsUncheckedCreateNestedManyWithoutBridgeInput = {
+    create?: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput> | RecordsCreateWithoutBridgeInput[] | RecordsUncheckedCreateWithoutBridgeInput[]
+    connectOrCreate?: RecordsCreateOrConnectWithoutBridgeInput | RecordsCreateOrConnectWithoutBridgeInput[]
+    createMany?: RecordsCreateManyBridgeInputEnvelope
+    connect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneWithoutBridgesNestedInput = {
+    create?: XOR<UserCreateWithoutBridgesInput, UserUncheckedCreateWithoutBridgesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBridgesInput
+    upsert?: UserUpsertWithoutBridgesInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDevicesInput, UserUpdateWithoutDevicesInput>, UserUncheckedUpdateWithoutDevicesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBridgesInput, UserUpdateWithoutBridgesInput>, UserUncheckedUpdateWithoutBridgesInput>
+  }
+
+  export type RecordsUpdateManyWithoutBridgeNestedInput = {
+    create?: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput> | RecordsCreateWithoutBridgeInput[] | RecordsUncheckedCreateWithoutBridgeInput[]
+    connectOrCreate?: RecordsCreateOrConnectWithoutBridgeInput | RecordsCreateOrConnectWithoutBridgeInput[]
+    upsert?: RecordsUpsertWithWhereUniqueWithoutBridgeInput | RecordsUpsertWithWhereUniqueWithoutBridgeInput[]
+    createMany?: RecordsCreateManyBridgeInputEnvelope
+    set?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    disconnect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    delete?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    connect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    update?: RecordsUpdateWithWhereUniqueWithoutBridgeInput | RecordsUpdateWithWhereUniqueWithoutBridgeInput[]
+    updateMany?: RecordsUpdateManyWithWhereWithoutBridgeInput | RecordsUpdateManyWithWhereWithoutBridgeInput[]
+    deleteMany?: RecordsScalarWhereInput | RecordsScalarWhereInput[]
+  }
+
+  export type RecordsUncheckedUpdateManyWithoutBridgeNestedInput = {
+    create?: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput> | RecordsCreateWithoutBridgeInput[] | RecordsUncheckedCreateWithoutBridgeInput[]
+    connectOrCreate?: RecordsCreateOrConnectWithoutBridgeInput | RecordsCreateOrConnectWithoutBridgeInput[]
+    upsert?: RecordsUpsertWithWhereUniqueWithoutBridgeInput | RecordsUpsertWithWhereUniqueWithoutBridgeInput[]
+    createMany?: RecordsCreateManyBridgeInputEnvelope
+    set?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    disconnect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    delete?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    connect?: RecordsWhereUniqueInput | RecordsWhereUniqueInput[]
+    update?: RecordsUpdateWithWhereUniqueWithoutBridgeInput | RecordsUpdateWithWhereUniqueWithoutBridgeInput[]
+    updateMany?: RecordsUpdateManyWithWhereWithoutBridgeInput | RecordsUpdateManyWithWhereWithoutBridgeInput[]
+    deleteMany?: RecordsScalarWhereInput | RecordsScalarWhereInput[]
+  }
+
+  export type BridgeCreateNestedOneWithoutRecordsInput = {
+    create?: XOR<BridgeCreateWithoutRecordsInput, BridgeUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: BridgeCreateOrConnectWithoutRecordsInput
+    connect?: BridgeWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BridgeUpdateOneRequiredWithoutRecordsNestedInput = {
+    create?: XOR<BridgeCreateWithoutRecordsInput, BridgeUncheckedCreateWithoutRecordsInput>
+    connectOrCreate?: BridgeCreateOrConnectWithoutRecordsInput
+    upsert?: BridgeUpsertWithoutRecordsInput
+    connect?: BridgeWhereUniqueInput
+    update?: XOR<XOR<BridgeUpdateToOneWithWhereWithoutRecordsInput, BridgeUpdateWithoutRecordsInput>, BridgeUncheckedUpdateWithoutRecordsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8317,25 +11136,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -8377,6 +11177,39 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
@@ -8413,20 +11246,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -8452,21 +11271,103 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumChoicesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Choices | EnumChoicesFieldRefInput<$PrismaModel>
-    in?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    not?: NestedEnumChoicesFilter<$PrismaModel> | $Enums.Choices
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumChoicesWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Choices | EnumChoicesFieldRefInput<$PrismaModel>
-    in?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Choices[] | ListEnumChoicesFieldRefInput<$PrismaModel>
-    not?: NestedEnumChoicesWithAggregatesFilter<$PrismaModel> | $Enums.Choices
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumChoicesFilter<$PrismaModel>
-    _max?: NestedEnumChoicesFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type UserCreateWithoutPostsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    secret?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    Bridges?: BridgeCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPostsInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    image?: string | null
+    secret?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    Bridges?: BridgeUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPostsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+  }
+
+  export type UserUpsertWithoutPostsInput = {
+    update: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+    create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPostsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPostsInput, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type UserUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    secret?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    Bridges?: BridgeUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPostsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    secret?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    Bridges?: BridgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -8539,29 +11440,53 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DeviceCreateWithoutUserInput = {
+  export type PostCreateWithoutCreatedByInput = {
     id?: string
     name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type DeviceUncheckedCreateWithoutUserInput = {
+  export type PostUncheckedCreateWithoutCreatedByInput = {
     id?: string
     name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
     createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type DeviceCreateOrConnectWithoutUserInput = {
-    where: DeviceWhereUniqueInput
-    create: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput>
+  export type PostCreateOrConnectWithoutCreatedByInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput>
   }
 
-  export type DeviceCreateManyUserInputEnvelope = {
-    data: DeviceCreateManyUserInput | DeviceCreateManyUserInput[]
+  export type PostCreateManyCreatedByInputEnvelope = {
+    data: PostCreateManyCreatedByInput | PostCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BridgeCreateWithoutUserInput = {
+    id?: string
+    name?: string | null
+    secretKey?: string
+    createdAt?: Date | string
+    Records?: RecordsCreateNestedManyWithoutBridgeInput
+  }
+
+  export type BridgeUncheckedCreateWithoutUserInput = {
+    id?: string
+    name?: string | null
+    secretKey?: string
+    createdAt?: Date | string
+    Records?: RecordsUncheckedCreateNestedManyWithoutBridgeInput
+  }
+
+  export type BridgeCreateOrConnectWithoutUserInput = {
+    where: BridgeWhereUniqueInput
+    create: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput>
+  }
+
+  export type BridgeCreateManyUserInputEnvelope = {
+    data: BridgeCreateManyUserInput | BridgeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -8630,32 +11555,58 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
-  export type DeviceUpsertWithWhereUniqueWithoutUserInput = {
-    where: DeviceWhereUniqueInput
-    update: XOR<DeviceUpdateWithoutUserInput, DeviceUncheckedUpdateWithoutUserInput>
-    create: XOR<DeviceCreateWithoutUserInput, DeviceUncheckedCreateWithoutUserInput>
+  export type PostUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: PostWhereUniqueInput
+    update: XOR<PostUpdateWithoutCreatedByInput, PostUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<PostCreateWithoutCreatedByInput, PostUncheckedCreateWithoutCreatedByInput>
   }
 
-  export type DeviceUpdateWithWhereUniqueWithoutUserInput = {
-    where: DeviceWhereUniqueInput
-    data: XOR<DeviceUpdateWithoutUserInput, DeviceUncheckedUpdateWithoutUserInput>
+  export type PostUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: PostWhereUniqueInput
+    data: XOR<PostUpdateWithoutCreatedByInput, PostUncheckedUpdateWithoutCreatedByInput>
   }
 
-  export type DeviceUpdateManyWithWhereWithoutUserInput = {
-    where: DeviceScalarWhereInput
-    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutUserInput>
+  export type PostUpdateManyWithWhereWithoutCreatedByInput = {
+    where: PostScalarWhereInput
+    data: XOR<PostUpdateManyMutationInput, PostUncheckedUpdateManyWithoutCreatedByInput>
   }
 
-  export type DeviceScalarWhereInput = {
-    AND?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
-    OR?: DeviceScalarWhereInput[]
-    NOT?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
-    id?: StringFilter<"Device"> | string
-    name?: StringFilter<"Device"> | string
-    secret?: StringFilter<"Device"> | string
-    GlobalChoice?: EnumChoicesFilter<"Device"> | $Enums.Choices
-    userId?: StringNullableFilter<"Device"> | string | null
-    createdAt?: DateTimeFilter<"Device"> | Date | string
+  export type PostScalarWhereInput = {
+    AND?: PostScalarWhereInput | PostScalarWhereInput[]
+    OR?: PostScalarWhereInput[]
+    NOT?: PostScalarWhereInput | PostScalarWhereInput[]
+    id?: StringFilter<"Post"> | string
+    name?: StringFilter<"Post"> | string
+    createdAt?: DateTimeFilter<"Post"> | Date | string
+    updatedAt?: DateTimeFilter<"Post"> | Date | string
+    createdById?: StringFilter<"Post"> | string
+  }
+
+  export type BridgeUpsertWithWhereUniqueWithoutUserInput = {
+    where: BridgeWhereUniqueInput
+    update: XOR<BridgeUpdateWithoutUserInput, BridgeUncheckedUpdateWithoutUserInput>
+    create: XOR<BridgeCreateWithoutUserInput, BridgeUncheckedCreateWithoutUserInput>
+  }
+
+  export type BridgeUpdateWithWhereUniqueWithoutUserInput = {
+    where: BridgeWhereUniqueInput
+    data: XOR<BridgeUpdateWithoutUserInput, BridgeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BridgeUpdateManyWithWhereWithoutUserInput = {
+    where: BridgeScalarWhereInput
+    data: XOR<BridgeUpdateManyMutationInput, BridgeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BridgeScalarWhereInput = {
+    AND?: BridgeScalarWhereInput | BridgeScalarWhereInput[]
+    OR?: BridgeScalarWhereInput[]
+    NOT?: BridgeScalarWhereInput | BridgeScalarWhereInput[]
+    id?: StringFilter<"Bridge"> | string
+    name?: StringNullableFilter<"Bridge"> | string | null
+    userId?: StringNullableFilter<"Bridge"> | string | null
+    secretKey?: StringFilter<"Bridge"> | string
+    createdAt?: DateTimeFilter<"Bridge"> | Date | string
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -8668,7 +11619,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
-    Devices?: DeviceCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -8681,7 +11633,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    Devices?: DeviceUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -8710,7 +11663,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -8723,7 +11677,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -8736,7 +11691,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
-    Devices?: DeviceCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -8749,7 +11705,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    Devices?: DeviceUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
+    Bridges?: BridgeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -8778,7 +11735,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -8791,10 +11749,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    Devices?: DeviceUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+    Bridges?: BridgeUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutDevicesInput = {
+  export type UserCreateWithoutBridgesInput = {
     id: string
     name: string
     email: string
@@ -8805,9 +11764,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     accounts?: AccountCreateNestedManyWithoutUserInput
+    posts?: PostCreateNestedManyWithoutCreatedByInput
   }
 
-  export type UserUncheckedCreateWithoutDevicesInput = {
+  export type UserUncheckedCreateWithoutBridgesInput = {
     id: string
     name: string
     email: string
@@ -8818,25 +11778,48 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    posts?: PostUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
-  export type UserCreateOrConnectWithoutDevicesInput = {
+  export type UserCreateOrConnectWithoutBridgesInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+    create: XOR<UserCreateWithoutBridgesInput, UserUncheckedCreateWithoutBridgesInput>
   }
 
-  export type UserUpsertWithoutDevicesInput = {
-    update: XOR<UserUpdateWithoutDevicesInput, UserUncheckedUpdateWithoutDevicesInput>
-    create: XOR<UserCreateWithoutDevicesInput, UserUncheckedCreateWithoutDevicesInput>
+  export type RecordsCreateWithoutBridgeInput = {
+    id?: string
+    createdAt?: Date | string
+    weight: number
+  }
+
+  export type RecordsUncheckedCreateWithoutBridgeInput = {
+    id?: string
+    createdAt?: Date | string
+    weight: number
+  }
+
+  export type RecordsCreateOrConnectWithoutBridgeInput = {
+    where: RecordsWhereUniqueInput
+    create: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput>
+  }
+
+  export type RecordsCreateManyBridgeInputEnvelope = {
+    data: RecordsCreateManyBridgeInput | RecordsCreateManyBridgeInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutBridgesInput = {
+    update: XOR<UserUpdateWithoutBridgesInput, UserUncheckedUpdateWithoutBridgesInput>
+    create: XOR<UserCreateWithoutBridgesInput, UserUncheckedCreateWithoutBridgesInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutDevicesInput = {
+  export type UserUpdateToOneWithWhereWithoutBridgesInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDevicesInput, UserUncheckedUpdateWithoutDevicesInput>
+    data: XOR<UserUpdateWithoutBridgesInput, UserUncheckedUpdateWithoutBridgesInput>
   }
 
-  export type UserUpdateWithoutDevicesInput = {
+  export type UserUpdateWithoutBridgesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -8847,9 +11830,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
+    posts?: PostUpdateManyWithoutCreatedByNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutDevicesInput = {
+  export type UserUncheckedUpdateWithoutBridgesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -8860,6 +11844,81 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    posts?: PostUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type RecordsUpsertWithWhereUniqueWithoutBridgeInput = {
+    where: RecordsWhereUniqueInput
+    update: XOR<RecordsUpdateWithoutBridgeInput, RecordsUncheckedUpdateWithoutBridgeInput>
+    create: XOR<RecordsCreateWithoutBridgeInput, RecordsUncheckedCreateWithoutBridgeInput>
+  }
+
+  export type RecordsUpdateWithWhereUniqueWithoutBridgeInput = {
+    where: RecordsWhereUniqueInput
+    data: XOR<RecordsUpdateWithoutBridgeInput, RecordsUncheckedUpdateWithoutBridgeInput>
+  }
+
+  export type RecordsUpdateManyWithWhereWithoutBridgeInput = {
+    where: RecordsScalarWhereInput
+    data: XOR<RecordsUpdateManyMutationInput, RecordsUncheckedUpdateManyWithoutBridgeInput>
+  }
+
+  export type RecordsScalarWhereInput = {
+    AND?: RecordsScalarWhereInput | RecordsScalarWhereInput[]
+    OR?: RecordsScalarWhereInput[]
+    NOT?: RecordsScalarWhereInput | RecordsScalarWhereInput[]
+    id?: StringFilter<"Records"> | string
+    bridgeId?: StringFilter<"Records"> | string
+    createdAt?: DateTimeFilter<"Records"> | Date | string
+    weight?: FloatFilter<"Records"> | number
+  }
+
+  export type BridgeCreateWithoutRecordsInput = {
+    id?: string
+    name?: string | null
+    secretKey?: string
+    createdAt?: Date | string
+    user?: UserCreateNestedOneWithoutBridgesInput
+  }
+
+  export type BridgeUncheckedCreateWithoutRecordsInput = {
+    id?: string
+    name?: string | null
+    userId?: string | null
+    secretKey?: string
+    createdAt?: Date | string
+  }
+
+  export type BridgeCreateOrConnectWithoutRecordsInput = {
+    where: BridgeWhereUniqueInput
+    create: XOR<BridgeCreateWithoutRecordsInput, BridgeUncheckedCreateWithoutRecordsInput>
+  }
+
+  export type BridgeUpsertWithoutRecordsInput = {
+    update: XOR<BridgeUpdateWithoutRecordsInput, BridgeUncheckedUpdateWithoutRecordsInput>
+    create: XOR<BridgeCreateWithoutRecordsInput, BridgeUncheckedCreateWithoutRecordsInput>
+    where?: BridgeWhereInput
+  }
+
+  export type BridgeUpdateToOneWithWhereWithoutRecordsInput = {
+    where?: BridgeWhereInput
+    data: XOR<BridgeUpdateWithoutRecordsInput, BridgeUncheckedUpdateWithoutRecordsInput>
+  }
+
+  export type BridgeUpdateWithoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutBridgesNestedInput
+  }
+
+  export type BridgeUncheckedUpdateWithoutRecordsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateManyUserInput = {
@@ -8887,11 +11946,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type DeviceCreateManyUserInput = {
+  export type PostCreateManyCreatedByInput = {
     id?: string
     name: string
-    secret?: string
-    GlobalChoice: $Enums.Choices
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BridgeCreateManyUserInput = {
+    id?: string
+    name?: string | null
+    secretKey?: string
     createdAt?: Date | string
   }
 
@@ -8970,28 +12035,72 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DeviceUpdateWithoutUserInput = {
+  export type PostUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BridgeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Records?: RecordsUpdateManyWithoutBridgeNestedInput
+  }
+
+  export type BridgeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Records?: RecordsUncheckedUpdateManyWithoutBridgeNestedInput
+  }
+
+  export type BridgeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    secretKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DeviceUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RecordsCreateManyBridgeInput = {
+    id?: string
+    createdAt?: Date | string
+    weight: number
   }
 
-  export type DeviceUncheckedUpdateManyWithoutUserInput = {
+  export type RecordsUpdateWithoutBridgeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    secret?: StringFieldUpdateOperationsInput | string
-    GlobalChoice?: EnumChoicesFieldUpdateOperationsInput | $Enums.Choices
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type RecordsUncheckedUpdateWithoutBridgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type RecordsUncheckedUpdateManyWithoutBridgeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weight?: FloatFieldUpdateOperationsInput | number
   }
 
 

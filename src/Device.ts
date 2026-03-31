@@ -6,8 +6,7 @@ export class Device {
   public ws: WebSocket
   public id: string
   private hub: Hub
-  public clientId: string
-  public curState: "OFF" | "DIM" | "FULL" = "OFF"
+  private clientId: string
 
   constructor(ws: WebSocket, id: string, hub: Hub, clientId: string) {
     this.ws = ws
@@ -28,40 +27,40 @@ export class Device {
     this.ws.on("error", (error) => {
       console.error(`Device ${this.id} error:`, error)
     })
-
-    void this.StartingMsg()
   }
 
-  private async StartingMsg() {
-    const dbDevice = await db.device.findUnique({ where: { id: this.id } })
-    if (!dbDevice) {
-      console.warn("Device not present")
-      return
-    }
-
-    this.send(dbDevice.GlobalChoice)
-  }
-
-  private handleMessage(data: WebSocket.RawData) {
+  private async handleMessage(data: WebSocket.RawData) {
     const message = data.toString().trim()
     console.log(`Device ${this.id} message: ${message}`)
 
-    const validCommands = ["OFF", "FULL", "DIM"]
-    if (!validCommands.includes(message)) {
-      console.warn(`Device ${this.id} sent invalid command: ${message}`)
-      this.ws.send(JSON.stringify({ error: "Invalid command. Expected: OFF, FULL, or DIM" }))
+    const weight = Number(message)
+    if (!Number.isFinite(weight)) {
+      console.warn(`Device ${this.id} sent invalid weight: ${message}`)
+      this.ws.send(JSON.stringify({ error: "Invalid weight value" }))
       return
     }
 
-    this.curState = message as "OFF" | "DIM" | "FULL"
+    const record = await db.records.create({
+      data: {
+        bridgeId: this.id,
+        weight,
+      },
+    })
+
+    const payload = JSON.stringify({
+      bridgeId: this.id,
+      weight: record.weight,
+      createdAt: record.createdAt.toISOString(),
+      id: record.id,
+    })
 
     const client = this.hub.getClient(this.clientId)
     if (client && client.ws.readyState === WebSocket.OPEN) {
-      console.log(`Sending command ${message} to client ${this.clientId}`)
-      client.send(JSON.stringify({ id: this.id, state: this.curState }))
+      console.log("Sending")
+      client.send(payload)
     }
 
-    console.log(`Device ${this.id} sent command: ${message}`)
+    console.log(`Saved record for bridge ${this.id}: ${weight}`)
   }
 
   send(data: string) {
